@@ -6,7 +6,7 @@ Features are computed **chronologically** — for each match we use only informa
 
 ---
 
-## 1. ELO Rating System
+## 1. ELO Rating System ✅
 
 ELO is the backbone feature. Every player starts at **1500**. After each match, ratings adjust based on the outcome and the expected probability.
 
@@ -108,7 +108,9 @@ class EloRatingSystem:
 
 ---
 
-## 2. Full Feature List
+## 2. Full Feature List ✅
+
+> **Status:** all 8 diff features computed in `features.py`; present in `data_files/features_2020_present.parquet` (66 cols × 15,992 rows).
 
 | # | Feature | Description | Source |
 |---|---------|-------------|--------|
@@ -138,7 +140,9 @@ FEATURE_COLS = [
 
 ---
 
-## 3. Feature Engineering Pipeline
+## 3. Feature Engineering Pipeline ✅
+
+> **Status:** implemented as both a functional pipeline (`build_features()`) and a stateful `FeatureEngineer` class for live inference.
 
 ```python
 import pandas as pd
@@ -254,7 +258,9 @@ class FeatureEngineer:
 
 ---
 
-## 4. Balanced Dataset Construction
+## 4. Balanced Dataset Construction ✅
+
+> **Status:** `prepare_training_data()` implemented in `features.py`; produces 12,334 train / 3,040 test rows with perfect 50% balance.
 
 Since every row has the winner as Player 1, we randomly swap perspectives for 50% of rows so the model doesn't learn a positional bias.
 
@@ -290,13 +296,15 @@ def prepare_training_data(
 
 ---
 
-## 5. Possible Extensions
+## 5. Possible Extensions (partial ✅)
+
+> **Status:** Serve stats, Fatigue index, and Momentum/Streak are implemented. Tournament-specific ELO, Fast ELO, and win-rate by round remain as future work.
 
 | Feature | Notes |
 |---------|-------|
-| **Serve stats** | Ace rate, DF rate, 1st serve %, break-point save % (available in Sackmann data) |
-| **Fatigue index** | Days since last match, matches in last 14 days |
+| **Serve stats** ✅ | `serve_1stIn%`, `serve_1stWon%`, `serve_2ndWon%`, `bpSaved%` rolling 20-match average |
+| **Fatigue index** ✅ | `days_since_last_w/l`, `matches_14d_w/l` — computed in `_fatigue()` |
 | **Tournament-specific ELO** | Separate ratings per tournament (e.g., clay-court specialists at Roland Garros) |
-| **Momentum** | Streak length (consecutive wins/losses) |
+| **Momentum** ✅ | `streak_w` / `streak_l` — consecutive wins/losses computed in `_momentum()` |
 | **Fast ELO** | Higher K-factor (e.g., 64) for capturing recent form more aggressively |
 | **Win-rate by round** | Performance in QF/SF/F specifically |

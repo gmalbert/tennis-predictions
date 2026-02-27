@@ -16,7 +16,9 @@ We train several classifiers and compare them against an ELO-only baseline. The 
 
 ---
 
-## 1. ELO-Only Baseline
+## 1. ELO-Only Baseline ✅
+
+> **Status:** implemented in `train.py` as `elo_baseline()`; test accuracy 64.70%.
 
 The simplest predictor: the player with the higher ELO wins.
 
@@ -31,7 +33,19 @@ print(f"ELO-only baseline: {elo_acc:.2%}")
 
 ---
 
-## 2. Scikit-Learn Models
+## 2. Scikit-Learn Models ✅
+
+> **Status:** Decision Tree (60.9%), Random Forest (65.1%), Neural Network (64.5%) — all in `train.py::train_all_models()`.
+
+The same pipeline can be applied to the historical feature set in `predictions.py`'s
+Match Explorer tab: the trained model is run on each past match (winner vs loser)
+and the resulting probability is compared with the recorded market odds.  A
+numeric *edge* column (`model_prob_w - mkt_prob_w`) is added and a time series
+chart of monthly average edge is drawn, enabling trend analysis and
+backtesting.  Because applying the model over thousands of rows can be
+computationally expensive, the app now shows a checkbox to compute these
+fields on demand; filter the dataset first or accept the warning when the
+result set is large.
 
 ```python
 from sklearn.tree import DecisionTreeClassifier
@@ -122,7 +136,9 @@ def train_all_models(X_train, y_train, X_test, y_test):
 
 ---
 
-## 3. Model Serialization
+## 3. Model Serialization ✅
+
+> **Status:** `save_best_model()` in `train.py`; `load_model()` in both `train.py` and `predict.py`. Model saved at `data_files/tennis_predictor.pkl`.
 
 Save the best model along with all state needed for prediction.
 
@@ -162,7 +178,9 @@ def load_model(path="tennis_predictor.pkl"):
 
 ---
 
-## 4. Prediction at Inference Time
+## 4. Prediction at Inference Time ✅
+
+> **Status:** `MatchPredictor` class in `predict.py`; name-based ELO lookup from features parquet; integrated in `predictions.py` tab 1 as "Model%" columns.
 
 At prediction time, we compute the same feature vector from current ELO state.
 
@@ -226,7 +244,9 @@ class MatchPredictor:
 
 ---
 
-## 5. Full Training Script Skeleton (`tennis_predictor.py`)
+## 5. Full Training Script Skeleton (`train.py`) ✅
+
+> **Status:** `train.py` is the canonical training entry-point; replace pseudo-module references with our actual `features.py` API.
 
 ```python
 """
@@ -275,7 +295,9 @@ if __name__ == "__main__":
 
 ---
 
-## 6. Tournament Bracket Simulation
+## 6. Tournament Bracket Simulation ✅
+
+> **Status:** `TournamentSimulator` class in `predict.py`. Tested with a 4-player clay draw — correctly predicts Alcaraz over Sinner on clay.
 
 After training, we can simulate any tournament draw.
 

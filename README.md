@@ -32,19 +32,33 @@ modern UI.
    pip install -r requirements.txt
    ```
 3. Populate keys:
-   - `ODDS_API_KEY` for The Odds API (optional, project now uses Matchstat)
+   - `ODDS_API_KEY` for The Odds API (optional; historical odds join).
    - `RAPIDAPI_KEY` for Matchstat tennis API; place in `.env` or
-     `.streamlit/secrets.toml`
+     `.streamlit/secrets.toml` (required for live odds).
 4. Run initial data prep:
    ```bash
    python update_tml_data.py       # download current-year TML files
    python features.py              # build feature matrix (2020+)
    ```
-5. Start the app:
+5. Train or update the prediction model (optional but required for model
+   probabilities & betting edge shown in the UI):
+   ```bash
+   python train.py                # trains & saves best model; metrics printed
+   ```
+   The training script evaluates accuracy, AUC‑ROC, Brier score, and log
+   loss; results are stored in `data_files/tennis_predictor.pkl` and
+   displayed in the "Model Stats" tab of the app.
+6. Start the app:
    ```bash
    streamlit run predictions.py
    ```
-6. Deploy to Streamlit Cloud by connecting this repo; the GitHub Action will
+
+   - **Today's Matches tab** now shows market odds, model win probabilities,
+     and a green-highlighted "edge" column when the model's probability
+     exceeds the market's implied probability.
+   - Cells remain blank when neither player has ATP main-tour history
+     (e.g. futures/ITF events).
+7. Deploy to Streamlit Cloud by connecting this repo; the GitHub Action will
    keep data fresh each morning.
 
 ## 📁 Repository Structure
