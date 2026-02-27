@@ -43,6 +43,18 @@ SURFACE_WINDOW  = 20    # matches per surface for surface form
 
 SURFACES = ["Hard", "Clay", "Grass", "Carpet"]
 
+# Feature columns used for model training (signed diffs — winner perspective)
+FEATURE_COLS = [
+    "elo_diff",
+    "surface_elo_diff",
+    "total_elo_diff",
+    "h2h_diff",
+    "form_diff",
+    "rank_diff",
+    "height_diff",
+    "age_diff",
+]
+
 
 # ── 1. Load & clean all TML main-tour data ────────────────────────────────────
 
@@ -96,6 +108,125 @@ def _clean(df: pd.DataFrame) -> pd.DataFrame:
 
 def _elo_expected(r_a: float, r_b: float) -> float:
     return 1.0 / (1.0 + 10 ** ((r_b - r_a) / 400))
+
+
+class EloRatingSystem:
+    """
+    ELO rating system with overall and surface-specific ratings.
+    Player IDs are treated as strings (e.g. "CD85").
+    """
+
+    def __init__(self, k_factor: int = ELO_K, initial_rating: int = ELO_INIT):
+        self.k_factor       = k_factor
+        self.initial_rating = initial_rating
+        self.ratings: dict[str, float] = {}
+        self.surface_ratings: dict[str, dict[str, float]] = {s: {} for s in SURFACES}
+        self.rating_history: dict[str, list[tuple[str, float]]] = {}
+
+    def expected_score(self, player: float, opponent: float) -> float:
+        return 1.0 / (1.0 + 10 ** ((opponent - player) / 400))
+
+    def update_ratings(
+        self, winner_id: str, loser_id: str, surface: str, date: str
+    ) -> tuple[float, float, float, float]:
+        """
+        Update ratings after a match.
+        Returns (winner_elo_before, loser_elo_before,
+                 winner_surface_elo_before, loser_surface_elo_before).
+        """
+        w_elo = self.ratings.get(winner_id, self.initial_rating)
+        l_elo = self.ratings.get(loser_id,  self.initial_rating)
+        exp_w = self.expected_score(w_elo, l_elo)
+        delta = self.k_factor * (1.0 - exp_w)
+        self.ratings[winner_id] = w_elo + delta
+        self.ratings[loser_id]  = l_elo - delta
+
+        surf = surface if surface in self.surface_ratings else "Hard"
+        w_surf = self.surface_ratings[surf].get(winner_id, self.initial_rating)
+        l_surf = self.surface_ratings[surf].get(loser_id,  self.initial_rating)
+        exp_ws = self.expected_score(w_surf, l_surf)
+        delta_s = self.k_factor * (1.0 - exp_ws)
+        self.surface_ratings[surf][winner_id] = w_surf + delta_s
+        self.surface_ratings[surf][loser_id]  = l_surf - delta_s
+
+        self.rating_history.setdefault(winner_id, []).append((date, self.ratings[winner_id]))
+        self.rating_history.setdefault(loser_id,  []).append((date, self.ratings[loser_id]))
+        return w_elo, l_elo, w_surf, l_surf
+
+    def get_rating(self, player_id: str) -> float:
+        return self.ratings.get(player_id, self.initial_rating)
+
+    def get_surface_rating(self, player_id: str, surface: str) -> float:
+        surf = surface if surface in self.surface_ratings else "Hard"
+        return self.surface_ratings[surf].get(player_id, self.initial_rating)
+
+    def get_top_players(self, n: int = 20) -> list[tuple[str, float]]:
+        return sorted(self.ratings.items(), key=lambda x: x[1], reverse=True)[:n]
+
+
+class FeatureEngineer:
+    """
+    Stateful feature engineer for online / live inference.
+    Call update() for each completed match (in chronological order),
+    then get_prediction_features() for a future match.
+    """
+
+    def __init__(self):
+        self.elo_system    = EloRatingSystem()
+        self.h2h: dict[tuple[str, str], int]   = {}
+        self.recent_matches: dict[str, list[int]] = {}
+        self.recent_window = ROLLING_WINDOW
+
+    def update(self, winner_id: str, loser_id: str, surface: str, date: str) -> dict:
+        """Record one completed match; return its pre-match feature dict."""
+        w_elo, l_elo, w_surf, l_surf = self.elo_system.update_ratings(
+            winner_id, loser_id, surface, date
+        )
+        h2h_w = self.h2h.get((winner_id, loser_id), 0)
+        h2h_l = self.h2h.get((loser_id, winner_id), 0)
+        self.h2h[(winner_id, loser_id)] = h2h_w + 1
+
+        w_recent = self.recent_matches.get(winner_id, [])[-self.recent_window:]
+        l_recent = self.recent_matches.get(loser_id,  [])[-self.recent_window:]
+        w_form   = sum(w_recent) / len(w_recent) if w_recent else 0.5
+        l_form   = sum(l_recent) / len(l_recent) if l_recent else 0.5
+        self.recent_matches.setdefault(winner_id, []).append(1)
+        self.recent_matches.setdefault(loser_id,  []).append(0)
+
+        return {
+            "winner_elo": w_elo, "loser_elo": l_elo,
+            "elo_diff": w_elo - l_elo,
+            "winner_surface_elo": w_surf, "loser_surface_elo": l_surf,
+            "surface_elo_diff": w_surf - l_surf,
+            "total_elo_diff": (w_elo + w_surf) - (l_elo + l_surf),
+            "h2h_winner": h2h_w, "h2h_loser": h2h_l,
+            "h2h_diff": h2h_w - h2h_l,
+            "winner_form": w_form, "loser_form": l_form,
+            "form_diff": w_form - l_form,
+        }
+
+    def get_prediction_features(self, p1_id: str, p2_id: str, surface: str) -> dict:
+        """Return feature vector for a *future* match (no outcome known yet)."""
+        elo1  = self.elo_system.get_rating(p1_id)
+        elo2  = self.elo_system.get_rating(p2_id)
+        s1    = self.elo_system.get_surface_rating(p1_id, surface)
+        s2    = self.elo_system.get_surface_rating(p2_id, surface)
+        h2h1  = self.h2h.get((p1_id, p2_id), 0)
+        h2h2  = self.h2h.get((p2_id, p1_id), 0)
+        r1    = self.recent_matches.get(p1_id, [])[-self.recent_window:]
+        r2    = self.recent_matches.get(p2_id, [])[-self.recent_window:]
+        f1    = sum(r1) / len(r1) if r1 else 0.5
+        f2    = sum(r2) / len(r2) if r2 else 0.5
+        return {
+            "elo_diff":         elo1 - elo2,
+            "surface_elo_diff": s1   - s2,
+            "total_elo_diff":   (elo1 + s1) - (elo2 + s2),
+            "h2h_diff":         h2h1 - h2h2,
+            "form_diff":        f1   - f2,
+        }
+
+    def get_elo_system(self) -> EloRatingSystem:
+        return self.elo_system
 
 
 def _compute_elo(df: pd.DataFrame) -> pd.DataFrame:
@@ -352,7 +483,7 @@ def _rank_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     wr = pd.to_numeric(df["winner_rank"], errors="coerce")
     lr = pd.to_numeric(df["loser_rank"],  errors="coerce")
-    df["rank_diff"]  = wr - lr       # negative = winner ranked higher (better)
+    df["rank_diff"]  = lr - wr       # positive = winner ranked higher (better)
     df["rank_ratio"] = wr / lr.replace(0, np.nan)
     return df
 
@@ -375,7 +506,105 @@ def _encode(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-# ── 9. Assemble output columns ────────────────────────────────────────────────
+# ── 9. Diff features (FEATURE_COLS) ───────────────────────────────────────────
+
+def _diff_features(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Compute the 8 signed diff features that make up FEATURE_COLS.
+    rank_diff is already computed by _rank_features() with the correct sign;
+    this function adds the remaining 7 composite diffs.
+    """
+    df = df.copy()
+    df["elo_diff"]         = df["elo_pre_w"]      - df["elo_pre_l"]
+    df["surface_elo_diff"] = df["elo_surf_pre_w"] - df["elo_surf_pre_l"]
+    df["total_elo_diff"]   = (
+        (df["elo_pre_w"] + df["elo_surf_pre_w"])
+        - (df["elo_pre_l"] + df["elo_surf_pre_l"])
+    )
+    df["h2h_diff"]  = df["h2h_wins_w"] - df["h2h_wins_l"]
+    df["form_diff"] = df["recent_win_rate_w"] - df["recent_win_rate_l"]
+    df["height_diff"] = (
+        pd.to_numeric(df.get("winner_ht", np.nan), errors="coerce")
+        - pd.to_numeric(df.get("loser_ht",  np.nan), errors="coerce")
+    )
+    df["age_diff"] = (
+        pd.to_numeric(df.get("winner_age", np.nan), errors="coerce")
+        - pd.to_numeric(df.get("loser_age",  np.nan), errors="coerce")
+    )
+    return df
+
+
+# ── 10. Fatigue index ─────────────────────────────────────────────────────────
+
+def _fatigue(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Compute fatigue features for winner and loser *before* each match:
+      - days_since_last_w / _l : days elapsed since that player's previous match
+      - matches_14d_w / _l     : number of matches played in the preceding 14 days
+    """
+    last_date: dict[str, pd.Timestamp] = {}
+    match_dates: dict[str, list[pd.Timestamp]] = defaultdict(list)
+
+    days_since_w, days_since_l = [], []
+    m14d_w, m14d_l = [], []
+
+    for row in df.itertuples(index=False):
+        w, l   = row.winner_id, row.loser_id
+        d      = row.tourney_date
+        cutoff = d - pd.Timedelta(days=14)
+
+        # Record BEFORE updating state
+        dsw = int((d - last_date[w]).days) if w in last_date else np.nan
+        dsl = int((d - last_date[l]).days) if l in last_date else np.nan
+        mw  = sum(1 for x in match_dates[w] if x >= cutoff)
+        ml  = sum(1 for x in match_dates[l] if x >= cutoff)
+
+        days_since_w.append(dsw)
+        days_since_l.append(dsl)
+        m14d_w.append(mw)
+        m14d_l.append(ml)
+
+        last_date[w] = d
+        last_date[l] = d
+        match_dates[w].append(d)
+        match_dates[l].append(d)
+
+    df = df.copy()
+    df["days_since_last_w"] = days_since_w
+    df["days_since_last_l"] = days_since_l
+    df["matches_14d_w"]     = m14d_w
+    df["matches_14d_l"]     = m14d_l
+    print("Fatigue features computed.")
+    return df
+
+
+# ── 11. Momentum (streak) ─────────────────────────────────────────────────────
+
+def _momentum(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Current consecutive win/loss streak before each match.
+    streak_w > 0 : winner is on a winning run of that length.
+    streak_l < 0 : loser is on a losing run of that magnitude.
+    """
+    streak: dict[str, int] = defaultdict(int)
+
+    streak_w, streak_l = [], []
+    for row in df.itertuples(index=False):
+        w, l = row.winner_id, row.loser_id
+        streak_w.append(streak[w])
+        streak_l.append(streak[l])
+        # After recording, update: winner extends positive run, loser extends negative
+        streak[w] = max(streak[w], 0) + 1
+        streak[l] = min(streak[l], 0) - 1
+
+    df = df.copy()
+    df["streak_w"] = streak_w
+    df["streak_l"] = streak_l
+    print("Momentum (streak) computed.")
+    return df
+
+
+# ── 12. Assemble output columns ───────────────────────────────────────────────
 
 OUTPUT_COLS = [
     # Identity
@@ -384,13 +613,16 @@ OUTPUT_COLS = [
     # Encoded
     "tourney_level_enc", "surface_enc", "round_enc",
     # Players
-    "winner_id", "winner_name", "winner_rank", "winner_age", "winner_hand", "winner_ioc",
-    "loser_id",  "loser_name",  "loser_rank",  "loser_age",  "loser_hand",  "loser_ioc",
-    # ELO
+    "winner_id", "winner_name", "winner_rank", "winner_age", "winner_ht", "winner_hand", "winner_ioc",
+    "loser_id",  "loser_name",  "loser_rank",  "loser_age",  "loser_ht",  "loser_hand",  "loser_ioc",
+    # ELO (raw pre-match)
     "elo_pre_w", "elo_pre_l", "elo_surf_pre_w", "elo_surf_pre_l",
-    # Rank
-    "rank_diff", "rank_ratio",
-    # Recent form
+    # FEATURE_COLS — signed diffs for model training
+    "elo_diff", "surface_elo_diff", "total_elo_diff",
+    "h2h_diff", "form_diff", "rank_diff", "height_diff", "age_diff",
+    # Rank extras
+    "rank_ratio",
+    # Recent form (raw)
     "recent_win_rate_w", "recent_win_rate_l",
     "surface_win_rate_w", "surface_win_rate_l",
     # Serve stats
@@ -400,12 +632,17 @@ OUTPUT_COLS = [
     "serve_bpSaved_w", "serve_bpSaved_l",
     # H2H
     "h2h_wins_w", "h2h_wins_l",
+    # Fatigue (extension)
+    "days_since_last_w", "days_since_last_l",
+    "matches_14d_w",     "matches_14d_l",
+    # Momentum / streak (extension)
+    "streak_w", "streak_l",
     # Market
     "mkt_prob_w",
     # Raw odds (kept for reference / model calibration)
     "B365W", "B365L", "PSW", "PSL", "AvgW", "AvgL",
-    # Result (label for training)
-    "score", "winner_name",   # winner is always player_w by convention
+    # Result (label for training — winner is always player_w by convention)
+    "score", "winner_name",
 ]
 
 
@@ -446,6 +683,9 @@ def build_features(write_csv: bool = False) -> pd.DataFrame:
     df = _rank_features(df)
     df = _market_features(df)
     df = _encode(df)
+    df = _diff_features(df)
+    df = _fatigue(df)
+    df = _momentum(df)
 
     # ── Filter to 2020+
     df = df[df["tourney_date"] >= TRAIN_START].reset_index(drop=True)
@@ -470,6 +710,54 @@ def build_features(write_csv: bool = False) -> pd.DataFrame:
         print(f"Written: {OUT_CSV}")
 
     return out
+
+
+def prepare_training_data(
+    feature_df: pd.DataFrame,
+    feature_cols: list[str] | None = None,
+    test_year: int = 2025,
+) -> tuple:
+    """
+    Split into train / test and produce a balanced label set.
+
+    Because every row has the winner as 'player W', we randomly flip 50% of
+    rows (negate all diffs) so the model cannot learn a positional bias.
+
+    Parameters
+    ----------
+    feature_df  : output of build_features()
+    feature_cols: columns to include in X (defaults to FEATURE_COLS)
+    test_year   : first year held out as test set (default 2025)
+
+    Returns
+    -------
+    X_train, y_train, X_test, y_test, train_df, test_df
+    """
+    if feature_cols is None:
+        feature_cols = FEATURE_COLS
+
+    # Drop rows missing any feature column
+    valid = feature_df.dropna(subset=feature_cols)
+    train_df = valid[valid["tourney_date"].dt.year <  test_year].copy()
+    test_df  = valid[valid["tourney_date"].dt.year >= test_year].copy()
+
+    def create_balanced(df: pd.DataFrame):
+        rng   = np.random.default_rng(42)
+        flips = rng.random(len(df)) < 0.5       # True  → keep winner-first  (y=1)
+        rows  = df[feature_cols].to_numpy(dtype=float)
+        X     = np.where(flips[:, None], rows, -rows)
+        y     = flips.astype(int)
+        return X, y
+
+    X_train, y_train = create_balanced(train_df)
+    X_test,  y_test  = create_balanced(test_df)
+
+    print(
+        f"Training set : {X_train.shape[0]:,} rows (before {test_year})\n"
+        f"Test set     : {X_test.shape[0]:,} rows ({test_year} onward)\n"
+        f"Features     : {feature_cols}"
+    )
+    return X_train, y_train, X_test, y_test, train_df, test_df
 
 
 if __name__ == "__main__":

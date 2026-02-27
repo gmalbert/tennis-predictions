@@ -6,9 +6,9 @@ Data comes from three sources, each serving a distinct role:
 
 | Source | Role | Update frequency |
 |---|---|---|
-| **TennisMyLife (TML)** | Historical match results + serve/return stats | Daily (automated) |
-| **tennis-data.co.uk** | Historical betting odds (2020–2025) | Annual (manual, one-time) |
-| **Matchstat RapidAPI** | Live upcoming fixtures + pre-match odds | Daily at runtime (cached) |
+| **TennisMyLife (TML)** | Historical match results + serve/return stats | Daily (automated) ✅ |
+| **tennis-data.co.uk** | Historical betting odds (2020–2025) | Annual (manual, one-time) ✅ |
+| **Matchstat RapidAPI** | Live upcoming fixtures + pre-match odds | Daily at runtime (cached) ✅ |
 
 All data is scoped to **2020 onward** for modelling. Older TML files are kept on disk but excluded from feature computation and training.
 
@@ -43,7 +43,7 @@ w_ace, w_df, w_svpt, w_1stIn, w_1stWon, w_2ndWon, w_SvGms, w_bpSaved, w_bpFaced,
 l_ace, l_df, l_svpt, l_1stIn, l_1stWon, l_2ndWon, l_SvGms, l_bpSaved, l_bpFaced
 ```
 
-### Automated update
+### Automated update ✅
 
 `update_tml_data.py` re-downloads only the files that change daily:
 
@@ -53,6 +53,9 @@ l_ace, l_df, l_svpt, l_1stIn, l_1stWon, l_2ndWon, l_SvGms, l_bpSaved, l_bpFaced
 
 Run manually: `python update_tml_data.py`  
 Runs in CI: `.github/workflows/update_data.yml` (daily at 05:00 UTC)
+
+> **Status:** in use; workflow confirmed running and committing data each morning.
+
 
 ---
 
@@ -74,13 +77,16 @@ Decimal odds from multiple bookmakers, captured just before match start:
 | `AvgW` / `AvgL` | Oddsportal market average |
 | `BFEW` / `BFEL` | Betfair Exchange |
 
-### Join methodology
+### Join methodology ✅
 
 `enrich_with_odds.py` joins tennis-data.co.uk rows onto TML rows using:
 
 1. **Name normalisation** — `_name_keys()` generates 1–2 lookup keys per name handling initials, hyphens, apostrophes, compound surnames (e.g. "Carreno Busta P." and "Pablo Carreno Busta" map to the same key)
 2. **Date proximity** — when two files differ by up to 3 days for the same tournament, the closest date wins
 3. **Adjacent-year lookup** — January tournaments that appear in the previous year's xlsx are handled automatically
+
+> **Status:** script executed for 2020–2025; combined CSV produced with 81.5% odds match rate.
+
 
 ### Match rate
 
@@ -101,7 +107,7 @@ Decimal odds from multiple bookmakers, captured just before match start:
 
 These cannot be recovered by improving name matching. They are excluded from odds-dependent model features.
 
-### How to re-run enrichment (manual, once per year)
+### How to re-run enrichment (manual, once per year) ✅
 
 1. Download the new year's xlsx manually from `https://www.tennis-data.co.uk/YYYY/YYYY.xlsx` (browser only — SSL blocks automated download)
 2. Place in `data_files/`
@@ -110,14 +116,19 @@ These cannot be recovered by improving name matching. They are excluded from odd
 
 This is intentionally **not automated in CI** because tennis-data.co.uk only publishes the full-year file after the season ends.
 
+> **Status:** process documented and tested; 2025 data already ingested.
+
+
 ---
 
-## 3. Matchstat RapidAPI (live, 2026 onward)
+## 3. Matchstat RapidAPI (live, 2026 onward) ✅
 
 **Host:** `tennis-api-atp-wta-itf.p.rapidapi.com`  
 **Plan:** BASIC ($0/month, 500 requests/month)  
 **Key storage:** `.env` → `RAPIDAPI_KEY` and `.streamlit/secrets.toml` → `RAPIDAPI_KEY`  
 **Client:** `matchstat_api.py`
+
+> **Status:** integrated in UI; caching prevents duplicate calls; monthly usage logged.
 
 ### What's included
 

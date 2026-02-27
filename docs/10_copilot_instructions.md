@@ -20,11 +20,18 @@ Human developers should also review and follow these conventions.
   A comment near the top of `predictions.py` reminds Copilot of this rule.
 - **Cache data-loading functions** with `@st.cache_data` to avoid expensive repeats.
 - **Avoid hard-coding port numbers** when launching Streamlit; use the default.
+- **Model Stats & betting edge:** when adding columns to the "Today's Matches" tab,
+  include `Model%` and compute `Edge = Model% - Mkt%`; highlight positive edge
+  cells green.  Do not compute the model when neither player has ATP main-tour
+  history (use `features` dataframe to guard).
 
 ## Data pipeline guidelines
 
 - **Only pull 2020+ matches for features.** Older years remain on disk for seeding
   but should not be loaded into `features.py` filters.
+- **When you update the feature set** (add new columns or change computation logic),
+  remember to retrain the model (`python train.py`) and regenerate the pickle
+  before deploying; update the README and model docs accordingly.
 - **Maintain separation of concerns**: data acquisition (`update_tml_data.py`),
   enrichment (`enrich_with_odds.py`), and feature engineering (`features.py`) are
   independent scripts.
