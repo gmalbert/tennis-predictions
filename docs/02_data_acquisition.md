@@ -2,260 +2,197 @@
 
 ## Overview
 
-The primary historical data source is **Jeff Sackmann's `tennis_atp` repository** — the most comprehensive open tennis dataset available (1968–present, updated weekly). Live schedule data comes from **Flashscore** (primary) and **ESPN** (fallback). Betting odds come from **The Odds API**.
+Data comes from three sources, each serving a distinct role:
+
+| Source | Role | Update frequency |
+|---|---|---|
+| **TennisMyLife (TML)** | Historical match results + serve/return stats | Daily (automated) |
+| **tennis-data.co.uk** | Historical betting odds (2020–2025) | Annual (manual, one-time) |
+| **Matchstat RapidAPI** | Live upcoming fixtures + pre-match odds | Daily at runtime (cached) |
+
+All data is scoped to **2020 onward** for modelling. Older TML files are kept on disk but excluded from feature computation and training.
 
 ---
 
-## 1. Historical Match Data — Jeff Sackmann
+## 1. TennisMyLife (TML)
 
-**Repository:** https://github.com/JeffSackmann/tennis_atp
+**URL:** https://stats.tennismylife.org  
+**License:** MIT  
+**Local path:** `tml-data/`
 
-### What's Included
+### What's included
 
-| File Pattern | Contents |
+| File pattern | Contents |
 |---|---|
-| `atp_matches_YYYY.csv` | Match-level results per year (winner/loser, score, stats) |
-| `atp_players.csv` | Player metadata (name, DOB, height, hand, country) |
-| `atp_rankings_YYYY.csv` | Weekly ATP rankings |
-| `atp_matches_qual_chall_YYYY.csv` | Qualifier & Challenger results |
-| `atp_matches_futures_YYYY.csv` | Futures results |
+| `YYYY.csv` | ATP main-tour results per year (1968–2026) |
+| `YYYY_challenger.csv` | Challenger results per year (1978–2026) |
+| `ongoing_tourneys.csv` | Live in-progress matches, updated daily |
+| `ATP_Database.csv` | Full historical union file |
 
-### Key Columns in Match Files
+### Schema (50 columns, Sackmann-compatible)
 
 ```
-tourney_id, tourney_name, surface, draw_size, tourney_level, tourney_date,
-match_num, winner_id, winner_seed, winner_entry, winner_name, winner_hand,
+tourney_id, tourney_name, surface, draw_size, tourney_level, indoor,
+tourney_date, match_num,
+winner_id, winner_seed, winner_entry, winner_name, winner_hand,
 winner_ht, winner_ioc, winner_age, winner_rank, winner_rank_points,
-loser_id, loser_seed, loser_entry, loser_name, loser_hand, loser_ht,
-loser_ioc, loser_age, loser_rank, loser_rank_points,
+loser_id,  loser_seed,  loser_entry,  loser_name,  loser_hand,
+loser_ht,  loser_ioc,  loser_age,  loser_rank,  loser_rank_points,
 score, best_of, round, minutes,
 w_ace, w_df, w_svpt, w_1stIn, w_1stWon, w_2ndWon, w_SvGms, w_bpSaved, w_bpFaced,
 l_ace, l_df, l_svpt, l_1stIn, l_1stWon, l_2ndWon, l_SvGms, l_bpSaved, l_bpFaced
 ```
 
-### Auto-Download Script (`setup_data.py`)
+### Automated update
 
-Place this at the project root. Streamlit Cloud will call it on first deploy.
+`update_tml_data.py` re-downloads only the files that change daily:
 
-```python
-"""
-setup_data.py
-Downloads ATP data if not present.
-Used by Streamlit Cloud on first deploy and for local setup.
-"""
-import os
-import subprocess
+- Current year main tour (`2026.csv`)
+- Current year challengers (`2026_challenger.csv`)
+- Live matches (`ongoing_tourneys.csv`)
 
-DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tennis_atp")
-
-
-def setup():
-    """Clone ATP data repo if it doesn't exist."""
-    if not os.path.exists(DATA_DIR) or not os.listdir(DATA_DIR):
-        print("Downloading ATP match data...")
-        subprocess.run(
-            [
-                "git", "clone", "--depth", "1",
-                "https://github.com/JeffSackmann/tennis_atp.git",
-                DATA_DIR,
-            ],
-            check=True,
-        )
-        print("ATP data downloaded successfully.")
-    else:
-        print("ATP data already present.")
-
-
-if __name__ == "__main__":
-    setup()
-```
-
-### Loading & Cleaning Code
-
-```python
-import pandas as pd
-import numpy as np
-
-
-def load_atp_data(
-    data_dir: str,
-    start_year: int = 1991,
-    end_year: int = 2025,
-) -> pd.DataFrame:
-    """
-    Load and combine ATP match data from multiple years.
-
-    Args:
-        data_dir:   Path to the tennis_atp directory.
-        start_year: First year to include.
-        end_year:   Last year to include.
-
-    Returns:
-        Combined DataFrame of all matches.
-    """
-    all_matches = []
-
-    for year in range(start_year, end_year + 1):
-        try:
-            df = pd.read_csv(
-                f"{data_dir}/atp_matches_{year}.csv",
-                low_memory=False,
-            )
-            df["year"] = year
-            all_matches.append(df)
-            print(f"Loaded {year}: {len(df)} matches")
-        except FileNotFoundError:
-            print(f"Warning: No data file for {year}")
-
-    combined = pd.concat(all_matches, ignore_index=True)
-    print(f"\nTotal matches loaded: {len(combined)}")
-    return combined
-
-
-def load_player_data(data_dir: str) -> pd.DataFrame:
-    """Load player information (height, hand, DOB, etc.)"""
-    return pd.read_csv(f"{data_dir}/atp_players.csv")
-
-
-def clean_data(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Remove incomplete / problematic records.
-    """
-    print("\n--- Data Cleaning ---")
-    initial_count = len(df)
-
-    # Remove walkovers and retirements
-    df = df[
-        ~df["score"].str.contains("W/O|RET|DEF|Walkover", case=False, na=False)
-    ]
-    print(f"After removing walkovers/retirements: {len(df)}")
-
-    # Drop rows missing critical IDs
-    df = df.dropna(subset=["winner_id", "loser_id"])
-    print(f"After removing missing player IDs: {len(df)}")
-
-    # Drop rows missing surface
-    df = df.dropna(subset=["surface"])
-    print(f"After removing missing surface: {len(df)}")
-
-    # Type conversions
-    df["winner_id"] = df["winner_id"].astype(int)
-    df["loser_id"] = df["loser_id"].astype(int)
-    df["tourney_date"] = pd.to_datetime(df["tourney_date"], format="%Y%m%d")
-
-    # Sort chronologically (required for correct ELO calculation)
-    df = df.sort_values("tourney_date").reset_index(drop=True)
-
-    removed = initial_count - len(df)
-    print(f"\nRemoved {removed} matches ({removed / initial_count * 100:.1f}%)")
-    print(f"Final dataset: {len(df)} matches")
-    return df
-```
+Run manually: `python update_tml_data.py`  
+Runs in CI: `.github/workflows/update_data.yml` (daily at 05:00 UTC)
 
 ---
 
-## 2. Live Schedule Data
+## 2. tennis-data.co.uk Betting Odds (historical, 2020–2025)
 
-### Option A — Flashscore (Primary)
+**URL:** https://www.tennis-data.co.uk  
+**Local path:** `data_files/` (raw xlsx), `tml-data/YYYY_with_odds.csv` (joined)  
+**Combined file:** `tml-data/atp_2020_2025_with_odds.csv`
 
-Flashscore exposes an internal live-feed endpoint that returns **all** professional tennis matches (ATP, WTA, Challengers, ITF, doubles).
+### What's included
 
-| Detail | Value |
+Decimal odds from multiple bookmakers, captured just before match start:
+
+| Column | Bookmaker |
 |---|---|
-| URL | `https://www.flashscore.com/x/feed/f_2_0_2_en-gb_1` |
-| Method | GET |
-| Required Header | `x-fsign: SW9D1eZo` |
-| Response | Custom delimited text (see [scheduling.md](05_scheduling.md)) |
-| Coverage | Comprehensive — every professional match |
-| Rate Limit | Informal; cache results ≥ 2 min |
+| `B365W` / `B365L` | Bet365 |
+| `PSW` / `PSL` | Pinnacle |
+| `MaxW` / `MaxL` | Oddsportal best available |
+| `AvgW` / `AvgL` | Oddsportal market average |
+| `BFEW` / `BFEL` | Betfair Exchange |
 
-### Option B — ESPN (Fallback)
+### Join methodology
 
-ESPN has a free public JSON API for ATP/WTA main-tour scoreboard data.
+`enrich_with_odds.py` joins tennis-data.co.uk rows onto TML rows using:
 
-| Tour | Endpoint |
-|---|---|
-| ATP | `https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard` |
-| WTA | `https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard` |
+1. **Name normalisation** — `_name_keys()` generates 1–2 lookup keys per name handling initials, hyphens, apostrophes, compound surnames (e.g. "Carreno Busta P." and "Pablo Carreno Busta" map to the same key)
+2. **Date proximity** — when two files differ by up to 3 days for the same tournament, the closest date wins
+3. **Adjacent-year lookup** — January tournaments that appear in the previous year's xlsx are handled automatically
 
-Pros: Clean JSON. Cons: Main tour only (no Challengers/ITF).
+### Match rate
 
----
-
-## 3. Betting Odds Data
-
-### The Odds API
-
-| Detail | Value |
-|---|---|
-| Website | https://the-odds-api.com |
-| Free tier | 500 requests/month |
-| Endpoint | `https://api.the-odds-api.com/v4/sports/{sport_key}/odds` |
-| Format | JSON with decimal odds per bookmaker |
-| Supported tournaments | All Grand Slams, Masters 1000, 500s |
-
-See [odds_integration.md](06_odds_integration.md) for full client code.
-
-### Supported Tournament Keys
-
-```python
-TENNIS_SPORTS = {
-    "Australian Open":   "tennis_atp_aus_open_singles",
-    "French Open":       "tennis_atp_french_open",
-    "Wimbledon":         "tennis_atp_wimbledon",
-    "US Open":           "tennis_atp_us_open",
-    "Indian Wells":      "tennis_atp_indian_wells",
-    "Miami Open":        "tennis_atp_miami_open",
-    "Monte Carlo":       "tennis_atp_monte_carlo_masters",
-    "Madrid Open":       "tennis_atp_madrid_open",
-    "Italian Open":      "tennis_atp_italian_open",
-    "Canadian Open":     "tennis_atp_canadian_open",
-    "Cincinnati":        "tennis_atp_cincinnati_open",
-    "Shanghai Masters":  "tennis_atp_shanghai_masters",
-    "Paris Masters":     "tennis_atp_paris_masters",
-    "Dubai":             "tennis_atp_dubai",
-    "Qatar Open":        "tennis_atp_qatar_open",
-    "China Open":        "tennis_atp_china_open",
-}
-```
-
----
-
-## 4. Update Pipeline
-
-### Weekly Retrain Script (`update_data.sh`)
-
-```bash
-#!/bin/bash
-set -e
-
-cd "$(dirname "$0")"
-
-echo "=== Updating ATP data ==="
-cd tennis_atp
-git pull origin master
-cd ..
-
-echo "=== Retraining model ==="
-python tennis_predictor.py
-
-echo "=== Done ==="
-```
-
-### Recommended Cron Schedule
-
-```
-# Retrain every Monday at 03:00 UTC
-0 3 * * 1 /path/to/update_data.sh >> /path/to/retrain.log 2>&1
-```
-
----
-
-## 5. Data Summary
-
-| Source | Type | Format | Refresh |
+| Year | Rows | Matched | Rate |
 |---|---|---|---|
-| Jeff Sackmann `tennis_atp` | Historical matches + players | CSV | Weekly (git pull) |
-| Flashscore live feed | Today's schedule & live scores | Custom text | Every 2 min (cached) |
-| ESPN scoreboard API | Today's ATP/WTA schedule | JSON | Every 2 min (cached) |
-| The Odds API | Bookmaker odds | JSON | Every 5 min (cached) |
+| 2020 | 1,466 | 1,147 | 78.2% |
+| 2021 | 2,735 | 2,264 | 82.8% |
+| 2022 | 2,918 | 2,415 | 82.8% |
+| 2023 | 2,995 | 2,413 | 80.6% |
+| 2024 | 3,076 | 2,504 | 81.4% |
+| 2025 | 2,944 | 2,406 | 81.7% |
+| **Total** | **16,134** | **13,149** | **81.5%** |
+
+### Why 18.5% is unmatched (structural ceiling, not a matching failure)
+
+- **~40 rows** — United Cup, Laver Cup, Next Gen Finals: team/exhibition events never published by tennis-data.co.uk
+- **~2,500 rows** — Qualifying rounds at Slams and Masters 1000s: not covered by tennis-data.co.uk
+
+These cannot be recovered by improving name matching. They are excluded from odds-dependent model features.
+
+### How to re-run enrichment (manual, once per year)
+
+1. Download the new year's xlsx manually from `https://www.tennis-data.co.uk/YYYY/YYYY.xlsx` (browser only — SSL blocks automated download)
+2. Place in `data_files/`
+3. Run: `python enrich_with_odds.py --year YYYY`
+4. Run: `python features.py` to rebuild the feature matrix
+
+This is intentionally **not automated in CI** because tennis-data.co.uk only publishes the full-year file after the season ends.
+
+---
+
+## 3. Matchstat RapidAPI (live, 2026 onward)
+
+**Host:** `tennis-api-atp-wta-itf.p.rapidapi.com`  
+**Plan:** BASIC ($0/month, 500 requests/month)  
+**Key storage:** `.env` → `RAPIDAPI_KEY` and `.streamlit/secrets.toml` → `RAPIDAPI_KEY`  
+**Client:** `matchstat_api.py`
+
+### What's included
+
+- Today's and tomorrow's fixtures (ATP, WTA, ITF, Challengers)
+- Pre-match decimal odds: `k1`/`k2` (moneyline), `total`/`ktm`/`ktb` (totals), `f1`/`kf1`/`kf2` (handicap)
+- H2H match history between any two players
+- Player profiles, rankings, current-event stats
+
+### Budget management (500 calls/month)
+
+| Use | Calls/day | Calls/month |
+|---|---|---|
+| Today's fixtures (cached per calendar day) | 1 | ~30 |
+| Tomorrow's fixtures (cached per calendar day) | 1 | ~30 |
+| H2H lookups (cached permanently per pair) | 0–10 | ~100 |
+| **Reserve** | — | **~340** |
+
+- No call is made if there are no upcoming singles matches (`has_upcoming_matches()` guard)
+- Fixture responses cached to `cache/matchstat/fixtures_atp_YYYY-MM-DD.json`
+- H2H responses cached to `cache/matchstat/h2h_{id_lo}_{id_hi}.json` until invalidated
+
+### Why this replaces The Odds API for tennis
+
+Matchstat provides richer pre-match odds (moneyline + totals + handicap + set score) at no cost, scoped to tennis only, and also covers Challengers and ITF. The Odds API key is preserved in `.env` for use in other projects.
+
+---
+
+## 4. Gaps & Limitations
+
+| Gap | Impact | Mitigation |
+|---|---|---|
+| No odds before 2020 | Market-implied probability unavailable before 2020 | ELO and rank features cover full history |
+| Challenger odds absent from td.co.uk | No historical odds for challenger training rows | Matchstat covers challengers live from 2026 |
+| No 2026 historical odds in td.co.uk yet | 2026 training rows have no bookmaker odds column | Null feature; model handles missing values |
+| tennis-data.co.uk SSL blocks automation | Cannot auto-download new xlsx in CI | Annual manual download process documented above |
+| ~18.5% unmatched rows in historical odds | Those rows have null odds features | Excluded from odds-dependent model paths |
+
+---
+
+## 5. Automated Pipeline Timing
+
+```
+05:00 UTC daily  (GitHub Actions — .github/workflows/update_data.yml)
+  │
+  ├── update_tml_data.py      re-downloads 2026.csv, 2026_challenger.csv, ongoing_tourneys.csv
+  ├── features.py             recomputes rolling ELO, serve stats, recent form
+  │                           → data_files/features_2020_present.parquet
+  └── git commit + push       only if any file changed
+
+Streamlit app — on page load
+  │
+  └── matchstat_api.py        reads today's fixture cache (or fetches once if stale)
+                              returns upcoming matches + pre-match odds
+```
+
+---
+
+## 6. File Inventory
+
+```
+tml-data/
+  1968.csv … 2026.csv                        main tour by year (59 files)
+  1978_challenger.csv … 2026_challenger.csv  challengers by year (47 files)
+  ongoing_tourneys.csv                       live in-progress matches
+  ATP_Database.csv                           full historical union
+  2020_with_odds.csv … 2025_with_odds.csv    TML + td.co.uk odds per year
+  atp_2020_2025_with_odds.csv                combined training set (16,134 rows, 60 cols)
+
+data_files/
+  2020.xlsx … 2025.xlsx                      raw tennis-data.co.uk files
+  features_2020_present.parquet              output of features.py; read by predictions.py
+
+cache/                                       gitignored
+  matchstat/
+    fixtures_atp_YYYY-MM-DD.json             cached daily fixture + odds response
+    h2h_{id_lo}_{id_hi}.json                 cached H2H history per player pair
+    _usage.json                              monthly API call counter
+```

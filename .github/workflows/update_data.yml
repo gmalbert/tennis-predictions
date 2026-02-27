@@ -1,0 +1,57 @@
+name: Daily Data Update
+
+on:
+  schedule:
+    # 05:00 UTC every day — before most ATP morning matches start
+    - cron: "0 5 * * *"
+  workflow_dispatch:  # allow manual trigger from GitHub UI
+
+permissions:
+  contents: write  # needed to commit updated CSVs back to the repo
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout ────────────────────────────────────────────────────────
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ── 2. Python environment ──────────────────────────────────────────────
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # ── 3. Download latest TML match data ─────────────────────────────────
+      # Re-downloads current year + challenger + ongoing_tourneys.csv only.
+      # Full re-download of all 111 files skipped (historical CSVs don't change).
+      - name: Update TML data (current year)
+        run: python update_tml_data.py
+
+      # ── 4. Rebuild feature matrix ──────────────────────────────────────────
+      # Reads all TML files 2020-present, computes rolling ELO, serve stats,
+      # recent form, etc. and writes data_files/features_2020_present.parquet
+      - name: Build features
+        run: python features.py
+
+      # ── 5. Commit any changes ──────────────────────────────────────────────
+      # Only creates a commit if files actually changed.
+      - name: Commit updated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tml-data/2026.csv \
+                  tml-data/2026_challenger.csv \
+                  tml-data/ongoing_tourneys.csv \
+                  data_files/features_2020_present.parquet \
+                  || true
+          # Only commit if there's actually something staged
+          git diff --cached --quiet || \
+            git commit -m "chore: daily data update $(date -u +%Y-%m-%d)"
+          git push
