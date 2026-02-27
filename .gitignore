@@ -1,0 +1,34 @@
+# Python environment
+venv/
+.env
+.venv/
+
+# Byte-compiled / cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Data directories
+tennis_atp/
+models/
+*.pkl
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# VS Code workspace and settings
+*.code-workspace
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# other
+#data_files/
