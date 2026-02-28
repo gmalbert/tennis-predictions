@@ -1,10 +1,12 @@
 import os
 from datetime import date
 
+import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
+import textwrap
 
 # ── Page config (must be first Streamlit call) ────────────────────────────────
 st.set_page_config(
@@ -267,7 +269,7 @@ with tab_today:
 
         # explanation expander for odd columns: same text as bottom-of-page
         with st.expander("What do the 'Odds' columns mean?"):
-            st.markdown(
+            st.markdown(textwrap.dedent(
                 """
                 The **Odds (P1)** and **Odds (P2)** columns display decimal
                 money-line prices from the bookmaker for each player.  A price of
@@ -278,7 +280,7 @@ with tab_today:
                 that).  Use the odds together with ELO or other features when
                 evaluating value.
                 """
-            )
+            ))
 
         try:
             from matchstat_api import calls_used_this_month, calls_remaining
@@ -415,13 +417,15 @@ with tab_data:
 with tab_elo:
     st.subheader("Current ELO Rankings (from feature data)")
     with st.expander("What is ELO and how should I interpret it?"):
-        st.markdown(
+        st.markdown(textwrap.dedent(
             """
             **ELO** is a rating system originally developed for chess and widely
-            adopted across sports to quantify skill.  Every player starts at 1500
-            and gains or loses points after each match based on the expected
-            outcome.  Beating a stronger opponent yields a larger increase, while
-            losing to a weaker player causes a bigger drop.
+            adopted across sports to quantify skill.  It is named after its
+            creator, Arpad Elo, a Hungarian-American physics professor.  Every
+            player starts at 1500 and gains or loses points after each match
+            based on the expected outcome.  Beating a stronger opponent yields a
+            larger increase, while losing to a weaker player causes a bigger
+            drop.
 
             - A higher ELO indicates a better performer; differences of ~200
               points correspond to roughly a 75% win probability.
@@ -432,10 +436,9 @@ with tab_elo:
               before accounting for betting lines or recent form.
 
             This app displays the *pre-match* ELO, i.e. the rating **before** the
-tie was played, so it is directly comparable to the odds you're seeing.
+            tie was played, so it is directly comparable to the odds you're seeing.
             """
-        )
-
+        ))
 
     if features.empty:
         st.warning("Run `python features.py` to generate the feature matrix.")
@@ -513,7 +516,7 @@ tie was played, so it is directly comparable to the odds you're seeing.
 
     # bottom-of-page explanation for odds columns
     with st.expander("What do the 'Odds' columns mean?"):
-        st.markdown(
+        st.markdown(textwrap.dedent(
             """
             The **Odds (P1)** and **Odds (P2)** columns display decimal
             money-line prices from the bookmaker for each player.  A price of
@@ -524,7 +527,7 @@ tie was played, so it is directly comparable to the odds you're seeing.
             that).  Use the odds together with ELO or other features when
             evaluating value.
             """
-        )
+        ))
 
 
 # ══════════════════════════════════════════════════════════════════════════════
