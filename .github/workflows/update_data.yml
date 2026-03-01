@@ -40,7 +40,20 @@ jobs:
       - name: Build features
         run: python features.py
 
-      # ── 5. Commit any changes ──────────────────────────────────────────────
+      # ── 5. Retrain prediction model ────────────────────────────────────────
+      # Retrains on the freshly-built feature matrix and writes
+      # data_files/tennis_predictor.pkl so predictions reflect today's data.
+      - name: Train model
+        run: python train.py --no-nn
+
+      # ── 6. Pre-compute prediction backlog ─────────────────────────────────
+      # Scores the last 90 days of matches with the new model and writes
+      # data_files/prediction_backlog.parquet so the Backlog tab loads
+      # instantly without running inference on every page visit.
+      - name: Compute prediction backlog
+        run: python compute_backlog.py --days 90
+
+      # ── 7. Commit any changes ──────────────────────────────────────────────
       # Only creates a commit if files actually changed.
       - name: Commit updated data
         run: |
@@ -50,6 +63,8 @@ jobs:
                   tml-data/2026_challenger.csv \
                   tml-data/ongoing_tourneys.csv \
                   data_files/features_2020_present.parquet \
+                  data_files/tennis_predictor.pkl \
+                  data_files/prediction_backlog.parquet \
                   || true
           # Only commit if there's actually something staged
           git diff --cached --quiet || \
