@@ -27,11 +27,17 @@ _BUDGET  = 500  # calls / month hard limit
 
 # ── Key loading ────────────────────────────────────────────────────────────────
 
+def _debug(message: str) -> None:
+    if os.environ.get("MATCHSTAT_DEBUG", "").lower() in ("1", "true", "yes"):
+        print(f"[matchstat_api] {message}")
+
+
 def _load_key() -> str:
     """Load the RapidAPI key from .env first, then .streamlit/secrets.toml."""
     # 1. Environment variable (set by python-dotenv or the shell)
     key = os.environ.get("RAPIDAPI_KEY", "")
     if key:
+        _debug("loaded RAPIDAPI_KEY from environment")
         return key
 
     # 2. .env file next to this script
@@ -42,6 +48,7 @@ def _load_key() -> str:
             if line.startswith("RAPIDAPI_KEY="):
                 key = line.split("=", 1)[1].strip().strip('"').strip("'")
                 if key:
+                    _debug(f"loaded RAPIDAPI_KEY from {env_path}")
                     return key
 
     # 3. Streamlit secrets (only when running inside Streamlit)
@@ -49,6 +56,7 @@ def _load_key() -> str:
         import streamlit as st
         key = st.secrets.get("RAPIDAPI_KEY", "")
         if key:
+            _debug("loaded RAPIDAPI_KEY from Streamlit secrets")
             return key
     except Exception:
         pass
@@ -113,12 +121,25 @@ def _get(endpoint: str, params: dict | None = None) -> list | dict:
     if calls_remaining() == 0:
         raise RuntimeError(f"Monthly API budget of {_BUDGET} calls exhausted.")
 
+    key = _load_key()
     headers = {
         "x-rapidapi-host": _HOST,
-        "x-rapidapi-key":  _load_key(),
+        "x-rapidapi-key":  key,
     }
+    masked_key = key[:4] + "..." + key[-4:] if len(key) > 8 else "(masked)"
+    _debug(f"request {endpoint} headers={{'x-rapidapi-host': '{_HOST}', 'x-rapidapi-key': '{masked_key}'}} params={params}")
     url = f"{_BASE}/{endpoint.lstrip('/')}"
     resp = requests.get(url, headers=headers, params=params or {}, timeout=15)
+    if resp.status_code >= 500:
+        raise RuntimeError(
+            f"Tennis API is temporarily unavailable (HTTP {resp.status_code}). "
+            "Try again in a few minutes."
+        )
+    if resp.status_code in (401, 403):
+        raise RuntimeError(
+            f"Tennis API authentication failed (HTTP {resp.status_code}). "
+            "Check that RAPIDAPI_KEY is valid."
+        )
     resp.raise_for_status()
     used = _increment_usage()
     print(f"[matchstat] {resp.status_code} {url}  (calls this month: {used}/{_BUDGET})")

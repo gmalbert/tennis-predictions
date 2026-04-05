@@ -50,11 +50,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class _LaxSSLAdapter(HTTPAdapter):
     """Allow legacy servers that only speak older TLS/cipher sets."""
     def init_poolmanager(self, *args, **kwargs):
-        ctx = ssl.create_default_context()
-        ctx.set_ciphers("DEFAULT:@SECLEVEL=1")
+        ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+        ctx.set_ciphers("DEFAULT:@SECLEVEL=0")
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
-        ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
+        try:
+            ctx.minimum_version = ssl.TLSVersion.TLSv1
+        except AttributeError:
+            pass  # Python < 3.7
         kwargs["ssl_context"] = ctx
         super().init_poolmanager(*args, **kwargs)
 
@@ -141,31 +144,39 @@ def download_xlsx(year: int) -> Path | None:
     """
     Download the tennis-data.co.uk Excel file for `year`.
     Returns the local path, or None if download fails.
+    Falls back to http:// if https:// handshake fails (tennis-data.co.uk
+    has a known TLS compatibility issue on some Python/Windows builds).
     """
     existing = _local_xlsx(year)
     if existing:
         print(f"  [TD] Using existing file: {existing.name}")
         return existing
 
-    url  = TD_ATP_URL.format(year=year)
-    dest = DATA_DIR / f"{year}.xlsx"
-    print(f"  [TD] Downloading {url} …", end="", flush=True)
-    try:
-        sess = _get_session()
-        resp = sess.get(url, timeout=30, verify=False)
-        resp.raise_for_status()
-        dest.write_bytes(resp.content)
-        print(f" ✓ ({len(resp.content)//1024} KB)")
-        return dest
-    except requests.RequestException as e:
-        print(f" ✗ ({e})")
-        print(
-            f"\n  [TD] MANUAL DOWNLOAD FALLBACK\n"
-            f"       1. Open this URL in your browser: {url}\n"
-            f"       2. Save the file as: {dest}\n"
-            f"       3. Re-run this script – it will use the local file automatically.\n"
-        )
-        return None
+    base_url = TD_ATP_URL.format(year=year)
+    dest     = DATA_DIR / f"{year}.xlsx"
+
+    # Try https first, then plain http as fallback
+    for url in [base_url, base_url.replace("https://", "http://", 1)]:
+        print(f"  [TD] Downloading {url} ...", end="", flush=True)
+        try:
+            sess = _get_session()
+            resp = sess.get(url, timeout=30, verify=False)
+            resp.raise_for_status()
+            dest.write_bytes(resp.content)
+            print(f" OK ({len(resp.content)//1024} KB)")
+            return dest
+        except requests.RequestException as e:
+            print(f" FAIL ({e})")
+        except Exception as e:
+            print(f" FAIL (unexpected: {e})")
+
+    print(
+        f"\n  [TD] MANUAL DOWNLOAD FALLBACK\n"
+        f"       1. Open this URL in your browser: {base_url}\n"
+        f"       2. Save the file as: {dest}\n"
+        f"       3. Re-run this script - it will use the local file automatically.\n"
+    )
+    return None
 
 
 # ---------------------------------------------------------------------------
