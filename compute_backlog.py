@@ -52,7 +52,7 @@ def main(days: int | None = 90) -> None:
     if days is not None:
         cutoff = pd.Timestamp.today() - pd.Timedelta(days=days)
         df = df[df["tourney_date"] >= cutoff].copy()
-        print(f"[backlog] Filtered to last {days} days → {len(df):,} matches")
+        print(f"[backlog] Filtered to last {days} days -> {len(df):,} matches")
     else:
         df = df.copy()
         print(f"[backlog] Scoring all {len(df):,} matches (full history)")
@@ -78,7 +78,7 @@ def main(days: int | None = 90) -> None:
     n = len(df)
     for i, (_, row) in enumerate(df.iterrows()):
         if i % 500 == 0:
-            print(f"[backlog]   {i:,}/{n:,}…", end="\r", flush=True)
+            print(f"[backlog]   {i:,}/{n:,}...", end="\r", flush=True)
         try:
             _, prob = predictor.predict(row["winner_name"], row["loser_name"], row["surface"])
             probs.append(float(prob))
@@ -93,7 +93,7 @@ def main(days: int | None = 90) -> None:
     out = df[out_cols].sort_values("tourney_date", ascending=False).reset_index(drop=True)
 
     out.to_parquet(OUTPUT_FILE, index=False)
-    print(f"[backlog] Saved → {OUTPUT_FILE}  ({len(out):,} rows)")
+    print(f"[backlog] Saved -> {OUTPUT_FILE}  ({len(out):,} rows)")
 
 
 if __name__ == "__main__":

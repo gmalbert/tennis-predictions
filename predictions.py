@@ -92,22 +92,109 @@ def load_predictor():
     except Exception as e:
         return None
 
-# ── Load today's matches from Matchstat API ───────────────────────────────────
-@st.cache_data(ttl=1800)   # re-check every 30 min but don't burn extra API calls
-def load_today_matches() -> list[dict]:
-    try:
-        from matchstat_api import get_today_odds, has_upcoming_matches, calls_remaining
-        if not has_upcoming_matches():
+# ── Load today's matches (Matchstat primary, Bzzoiro supplements) ─────────────
+def _norm(name: str) -> str:
+    """Normalise a player name for cross-source matching."""
+    return name.lower().strip()
+
+
+@st.cache_data(ttl=120)
+def load_today_matches(circuit: str = "ATP") -> list[dict]:
+    """
+    ATP:  Matchstat is primary (full odds, 10+ matches).
+          Bzzoiro supplements each match with bzz_* prediction fields,
+          joined by normalised player name pair.
+          Falls back to Bzzoiro-only if Matchstat is unavailable.
+    WTA:  Bzzoiro only (Matchstat has no WTA data).
+    """
+
+    # ── WTA: Bzzoiro only ──────────────────────────────────────────────────────
+    if circuit != "ATP":
+        try:
+            from bzzoiro_api import get_today_matches_with_predictions
+            return get_today_matches_with_predictions(circuit=circuit)
+        except Exception as e:
+            st.warning(f"Could not load WTA schedule: {e}")
             return []
-        return get_today_odds()
+
+    # ── ATP step 1: Matchstat primary ──────────────────────────────────────────
+    matchstat_matches: list[dict] = []
+    try:
+        from matchstat_api import get_today_odds, has_upcoming_matches
+        if has_upcoming_matches():
+            matchstat_matches = get_today_odds()
     except Exception as e:
-        st.warning(f"Could not load live odds: {e}")
+        msg = str(e)
+        if "temporarily unavailable" in msg or "authentication failed" in msg or "budget" in msg.lower():
+            st.warning(f"Matchstat unavailable: {msg}")
+        else:
+            st.warning(f"Could not load live odds: {msg}")
+
+    # ── ATP step 2: Bzzoiro predictions supplement ─────────────────────────────
+    bzz_by_names: dict[tuple, dict] = {}
+    try:
+        from bzzoiro_api import get_today_matches_with_predictions
+        for bm in get_today_matches_with_predictions(circuit="ATP"):
+            key = (_norm(bm.get("player1_name", "")), _norm(bm.get("player2_name", "")))
+            bzz_by_names[key] = bm
+    except Exception:
+        pass  # predictions are optional — Matchstat data still shown without them
+
+    if matchstat_matches:
+        for m in matchstat_matches:
+            p1  = _norm(m.get("player1_name", ""))
+            p2  = _norm(m.get("player2_name", ""))
+            bm  = bzz_by_names.get((p1, p2))
+            rev = bzz_by_names.get((p2, p1))    # Bzzoiro may list players reversed
+            if bm or rev:
+                src  = bm or rev
+                flip = rev is not None and bm is None
+                m["bzz_prob_p1"]          = src.get("bzz_prob_p2" if flip else "bzz_prob_p1")
+                m["bzz_prob_p2"]          = src.get("bzz_prob_p1" if flip else "bzz_prob_p2")
+                m["bzz_confidence"]       = src.get("bzz_confidence")
+                m["bzz_predicted_winner"] = src.get("bzz_predicted_winner")
+                m["bzz_expected_sets"]    = src.get("bzz_expected_sets")
+                m["bzz_expected_games"]   = src.get("bzz_expected_games")
+                m["bzz_prob_over_22_5"]   = src.get("bzz_prob_over_22_5")
+        return matchstat_matches
+
+    # ── Fallback: Bzzoiro only if Matchstat returned nothing ───────────────────
+    return list(bzz_by_names.values())
+
+
+@st.cache_data(ttl=30)   # live scores — match server-side 30 s TTL
+def load_live_scores(circuit: str = "ATP") -> list[dict]:
+    try:
+        from bzzoiro_api import get_live_matches
+        return get_live_matches(circuit=circuit)
+    except Exception:
         return []
 
-features      = load_features()
-today_matches = load_today_matches()
-predictor     = load_predictor()
-model_data    = load_model_data()
+
+@st.cache_data(ttl=300)
+def load_atp_rankings_live(top: int = 200) -> pd.DataFrame:
+    """Live official ATP rankings from Bzzoiro. Falls back to empty DataFrame."""
+    try:
+        from bzzoiro_api import get_rankings
+        rows = get_rankings(circuit="ATP", top=top)
+        return pd.DataFrame([
+            {
+                "Rank":    r["ranking"],
+                "Player":  r["player"]["name"],
+                "Country": r["player"].get("country", ""),
+                "Points":  r["points"],
+            }
+            for r in rows
+        ])
+    except Exception:
+        return pd.DataFrame()
+
+features         = load_features()
+today_matches    = load_today_matches("ATP")
+wta_matches      = load_today_matches("WTA")
+live_scores_atp  = load_live_scores("ATP")
+predictor        = load_predictor()
+model_data       = load_model_data()
 
 # ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -237,8 +324,8 @@ def render_confidence_meter(confidence: float) -> None:
     )
 
 # ── Tabs ──────────────────────────────────────────────────────────────────────
-tab_today, tab_backlog, tab_predict, tab_player, tab_elo, tab_data, tab_model = st.tabs([
-    "📡 Today's Matches", "📋 Prediction Backlog", "🔮 Match Prediction",
+tab_today, tab_wta, tab_backlog, tab_predict, tab_player, tab_elo, tab_data, tab_model = st.tabs([
+    "📡 Today's ATP", "🎾 Today's WTA", "📋 Prediction Backlog", "🔮 Match Prediction",
     "👤 Player Analysis", "📊 ELO Rankings", "📂 Match Explorer", "📈 Model Stats",
 ])
 
@@ -247,10 +334,34 @@ tab_today, tab_backlog, tab_predict, tab_player, tab_elo, tab_data, tab_model = 
 # Tab 1 — Today's Matches
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_today:
-    st.subheader(f"Upcoming matches — {date.today().strftime('%A, %B %d %Y')}")
+    st.subheader(f"ATP · {date.today().strftime('%A, %B %d %Y')}")
+
+    # ── Live scores ticker ────────────────────────────────────────────────────
+    if live_scores_atp:
+        st.markdown("### 🔴 Live Now")
+        for _lm in live_scores_atp:
+            _lp1    = (_lm.get("player1_obj") or {}).get("name", _lm.get("player1", "P1"))
+            _lp2    = (_lm.get("player2_obj") or {}).get("name", _lm.get("player2", "P2"))
+            _ls1    = _lm.get("player1_sets", 0)
+            _ls2    = _lm.get("player2_sets", 0)
+            _is_p1_srv = _lm.get("is_serving_p1")
+            _ll_p1  = f"🎾 {_lp1}" if _is_p1_srv is True else _lp1
+            _ll_p2  = f"🎾 {_lp2}" if _is_p1_srv is False else _lp2
+            _gp1  = _lm.get("current_game_p1", "")
+            _gp2  = _lm.get("current_game_p2", "")
+            _lgame = f"{_gp1}-{_gp2}" if (_gp1 != "" and _gp2 != "") else ""
+            st.markdown(
+                f'<div class="match-card">'
+                f'<span><strong>{_ll_p1}</strong>&nbsp;{_ls1} – {_ls2}&nbsp;<strong>{_ll_p2}</strong></span>'
+                f'<span style="color:#ef4444;font-weight:700">LIVE&nbsp;&nbsp;</span>'
+                f'<span style="color:#6b7280">{_lgame}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+        st.markdown("---")
 
     if not today_matches:
-        st.info("No upcoming singles matches found for today, or API unavailable.")
+        st.info("No upcoming ATP singles matches found for today, or API unavailable.")
     else:
         # Enrich each match with status and model probabilities
         enriched = []
@@ -414,6 +525,22 @@ with tab_today:
                     f'</div>',
                     unsafe_allow_html=True,
                 )
+                # Bzzoiro second-opinion overlay
+                # prob values are 0-1 fractions (same scale as model prob)
+                _bzz_p1  = m.get("bzz_prob_p1")
+                _bzz_conf = m.get("bzz_confidence")
+                if _bzz_p1 is not None and _bzz_conf is not None:
+                    _bzz_sets  = m.get("bzz_expected_sets")
+                    _bzz_games = m.get("bzz_expected_games")
+                    _detail = ""
+                    if _bzz_sets:
+                        _detail += f" · {float(_bzz_sets):.1f} sets"
+                    if _bzz_games:
+                        _detail += f" / {float(_bzz_games):.1f} games"
+                    st.caption(
+                        f"🤖 Bzzoiro: {p1} {float(_bzz_p1) * 100:.0f}% · "
+                        f"confidence {float(_bzz_conf) * 100:.0f}%{_detail}"
+                    )
 
         # ── Legend ─────────────────────────────────────────────────────────────
         st.markdown(
@@ -438,10 +565,115 @@ with tab_today:
     add_betting_oracle_footer()
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Tab 2 — Today's WTA
+# ══════════════════════════════════════════════════════════════════════════════
+with tab_wta:
+    st.subheader(f"WTA · {date.today().strftime('%A, %B %d %Y')}")
+
+    # ── WTA live scores ───────────────────────────────────────────────────────
+    wta_live = load_live_scores("WTA")
+    if wta_live:
+        st.markdown("### 🔴 Live Now")
+        for _lm in wta_live:
+            _lp1   = (_lm.get("player1_obj") or {}).get("name", _lm.get("player1", "P1"))
+            _lp2   = (_lm.get("player2_obj") or {}).get("name", _lm.get("player2", "P2"))
+            _ls1   = _lm.get("player1_sets", 0)
+            _ls2   = _lm.get("player2_sets", 0)
+            _is_p1_srv = _lm.get("is_serving_p1")
+            _ll_p1 = f"🎾 {_lp1}" if _is_p1_srv is True else _lp1
+            _ll_p2 = f"🎾 {_lp2}" if _is_p1_srv is False else _lp2
+            _gp1 = _lm.get("current_game_p1", "")
+            _gp2 = _lm.get("current_game_p2", "")
+            _lgame = f"{_gp1}-{_gp2}" if (_gp1 != "" and _gp2 != "") else ""
+            st.markdown(
+                f'<div class="match-card">'
+                f'<span><strong>{_ll_p1}</strong>&nbsp;{_ls1} – {_ls2}&nbsp;<strong>{_ll_p2}</strong></span>'
+                f'<span style="color:#ef4444;font-weight:700">LIVE&nbsp;&nbsp;</span>'
+                f'<span style="color:#6b7280">{_lgame}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+        st.markdown("---")
+
+    if not wta_matches:
+        st.info("No upcoming WTA singles matches found for today, or API unavailable.")
+    else:
+        by_t_wta: dict[str, list] = {}
+        for _m in wta_matches:
+            _t = _m.get("tournament") or "Unknown Tournament"
+            by_t_wta.setdefault(_t, []).append(_m)
+
+        wta_total = len(wta_matches)
+        st.metric("WTA Matches Today", wta_total)
+
+        for _t_name, _t_matches in by_t_wta.items():
+            _surf_label = norm_surface(_t_matches[0].get("surface"))
+            st.markdown(
+                f'<div class="tournament-group-header">'
+                f'🏆 {_t_name} · {_surf_label}</div>',
+                unsafe_allow_html=True,
+            )
+            for _m in _t_matches:
+                _p1, _p2 = _m["player1_name"], _m["player2_name"]
+                _o1, _o2 = _m.get("odds_p1"), _m.get("odds_p2")
+                _rnd     = _m.get("round") or ""
+                _bzz_p1  = _m.get("bzz_prob_p1")
+                _bzz_conf = _m.get("bzz_confidence")
+
+                # Probability — Bzzoiro predictions are already 0-1 fractions
+                if _bzz_p1 is not None:
+                    _prob = float(_bzz_p1)
+                elif _o1 and _o2 and _o1 > 1 and _o2 > 1:
+                    _raw1, _raw2 = 1 / _o1, 1 / _o2
+                    _prob = _raw1 / (_raw1 + _raw2)
+                else:
+                    _prob = None
+
+                _odds_str = f" · {_o1:.2f} / {_o2:.2f}" if (_o1 and _o2) else ""
+
+                if _prob is not None:
+                    _p2_prob = 1 - _prob
+                    if _prob >= 0.75:
+                        _pred_html = f'<span class="prediction-high">{_p1} {_prob:.0%} ✅</span>'
+                    elif _prob >= 0.65:
+                        _pred_html = f'<span class="prediction-medium">{_p1} {_prob:.0%}</span>'
+                    elif _p2_prob >= 0.75:
+                        _pred_html = f'<span class="prediction-high">{_p2} {_p2_prob:.0%} ✅</span>'
+                    elif _p2_prob >= 0.65:
+                        _pred_html = f'<span class="prediction-medium">{_p2} {_p2_prob:.0%}</span>'
+                    else:
+                        _pred_html = '<span class="prediction-low">skip</span>'
+                else:
+                    _pred_html = '<span class="prediction-low">no prediction</span>'
+
+                st.markdown(
+                    f'<div class="match-card">'
+                    f'<span><span class="status-dot status-upcoming"></span>'
+                    f'<strong>{_p1}</strong> vs <strong>{_p2}</strong>'
+                    f'<small style="color:#888">{_odds_str}</small></span>'
+                    f'<span>{_pred_html}&nbsp;<small style="color:#aaa">{_rnd}</small></span>'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
+                if _bzz_p1 is not None and _bzz_conf is not None:
+                    _bzz_sets  = _m.get("bzz_expected_sets")
+                    _bzz_games = _m.get("bzz_expected_games")
+                    _detail = ""
+                    if _bzz_sets:
+                        _detail += f" · {float(_bzz_sets):.1f} sets"
+                    if _bzz_games:
+                        _detail += f" / {float(_bzz_games):.1f} games"
+                    st.caption(
+                        f"🤖 Bzzoiro: {_p1} {float(_bzz_p1) * 100:.0f}% · "
+                        f"confidence {float(_bzz_conf) * 100:.0f}%{_detail}"
+                    )
+
+    add_betting_oracle_footer()
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Tab 2 — Prediction Backlog
+# Tab 3 — Prediction Backlog
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_backlog:
     st.subheader("📋 Prediction Backlog")
@@ -808,6 +1040,31 @@ with tab_data:
 # ══════════════════════════════════════════════════════════════════════════════
 with tab_elo:
     st.subheader("📊 ELO Rankings")
+
+    # ── Live official ATP rankings (Bzzoiro) ──────────────────────────────────
+    with st.expander("🌐 Live Official ATP Rankings", expanded=False):
+        _live_top = st.slider(
+            "Show top N", min_value=10, max_value=200, value=100, step=10,
+            key="live_rank_top",
+        )
+        _live_df = load_atp_rankings_live(top=_live_top)
+        if _live_df.empty:
+            st.info("Live rankings unavailable — check BZZOIRO_KEY or API connectivity.")
+        else:
+            st.caption(
+                f"Official ATP rankings · {len(_live_df):,} players · refreshes every 5 minutes"
+            )
+            st.dataframe(
+                _live_df,
+                width="stretch",
+                hide_index=True,
+                height=get_dataframe_height(_live_df),
+                column_config={
+                    "Rank":   st.column_config.NumberColumn("Rank",   format="%d"),
+                    "Points": st.column_config.NumberColumn("Points", format="%d"),
+                },
+            )
+
     with st.expander("What is ELO and how should I interpret it?"):
         st.markdown(textwrap.dedent(
             """

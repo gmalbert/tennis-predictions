@@ -31,8 +31,10 @@ jobs:
       # ── 3. Download latest TML match data ─────────────────────────────────
       # Re-downloads current year + challenger + ongoing_tourneys.csv only.
       # Full re-download of all 111 files skipped (historical CSVs don't change).
-      - name: Update TML data (current year)
-        run: python update_tml_data.py
+      # --supplement also downloads the tennis-data.co.uk XLSX and appends any
+      # rows newer than TML's latest date, filling TML's typical ~2-week lag.
+      - name: Update TML data (current year + TD supplement)
+        run: python update_tml_data.py --supplement
 
       # ── 4. Rebuild feature matrix ──────────────────────────────────────────
       # Reads all TML files 2020-present, computes rolling ELO, serve stats,
@@ -65,6 +67,7 @@ jobs:
                   data_files/features_2020_present.parquet \
                   data_files/tennis_predictor.pkl \
                   data_files/prediction_backlog.parquet \
+                  data_files/2026.xlsx \
                   || true
           # Only commit if there's actually something staged
           git diff --cached --quiet || \
