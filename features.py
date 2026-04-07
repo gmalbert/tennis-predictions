@@ -283,9 +283,27 @@ def _compute_elo(df: pd.DataFrame) -> pd.DataFrame:
 
 # ── 3. Rolling per-player stats ───────────────────────────────────────────────
 
+def _as_float(value):
+    if value is None:
+        return None
+    if isinstance(value, str):
+        value = value.strip()
+        if value == "":
+            return None
+    try:
+        value = float(value)
+    except (TypeError, ValueError):
+        return None
+    if np.isnan(value):
+        return None
+    return value
+
+
 def _safe_pct(num, denom):
     """Return num/denom as a percentage, or NaN if denom == 0."""
-    if denom and denom > 0:
+    num = _as_float(num)
+    denom = _as_float(denom)
+    if denom is not None and denom > 0:
         return 100.0 * num / denom
     return np.nan
 
@@ -340,16 +358,16 @@ def _rolling_serve(df: pd.DataFrame) -> pd.DataFrame:
 
         # Append this match to each player's history
         def _srv_pct(svpt_col, won_col, row):
-            svpt = getattr(row, svpt_col, None)
-            won  = getattr(row, won_col, None)
-            if svpt and won and svpt > 0:
+            svpt = _as_float(getattr(row, svpt_col, None))
+            won  = _as_float(getattr(row, won_col, None))
+            if svpt is not None and svpt > 0 and won is not None:
                 return 100.0 * won / svpt
             return np.nan
 
         def _1stIn_pct(row, prefix):
-            svpt = getattr(row, f"{prefix}_svpt", None)
-            inn  = getattr(row, f"{prefix}_1stIn", None)
-            if svpt and inn and svpt > 0:
+            svpt = _as_float(getattr(row, f"{prefix}_svpt", None))
+            inn  = _as_float(getattr(row, f"{prefix}_1stIn", None))
+            if svpt is not None and svpt > 0 and inn is not None:
                 return 100.0 * inn / svpt
             return np.nan
 
