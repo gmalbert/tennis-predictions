@@ -300,10 +300,10 @@ def _as_float(value):
 
 
 def _safe_pct(num, denom):
-    """Return num/denom as a percentage, or NaN if denom == 0."""
+    """Return num/denom as a percentage, or NaN if denom == 0 or either is None."""
     num = _as_float(num)
     denom = _as_float(denom)
-    if denom is not None and denom > 0:
+    if num is not None and denom is not None and denom > 0:
         return 100.0 * num / denom
     return np.nan
 
