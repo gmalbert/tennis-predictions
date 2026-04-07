@@ -717,7 +717,12 @@ def build_features(write_csv: bool = False) -> pd.DataFrame:
         if c not in seen:
             deduped.append(c)
             seen.add(c)
-    out = df[deduped]
+    out = df[deduped].copy()
+
+    # Coerce rank columns that may arrive as strings from raw CSVs
+    for col in ("winner_rank", "loser_rank"):
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce")
 
     # ── Write
     out.to_parquet(OUT_PARQUET, index=False)
