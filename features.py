@@ -719,8 +719,13 @@ def build_features(write_csv: bool = False) -> pd.DataFrame:
             seen.add(c)
     out = df[deduped].copy()
 
-    # Coerce rank columns that may arrive as strings from raw CSVs
-    for col in ("winner_rank", "loser_rank"):
+    # Coerce columns that may arrive as strings from raw CSVs
+    str_to_numeric = [
+        "winner_rank", "loser_rank",
+        "winner_age",  "loser_age",
+        "winner_ht",   "loser_ht",
+    ]
+    for col in str_to_numeric:
         if col in out.columns:
             out[col] = pd.to_numeric(out[col], errors="coerce")
 
