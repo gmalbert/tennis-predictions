@@ -1,5 +1,7 @@
 # Bzzoiro Tennis API — Integration Analysis & Implementation
 
+> Status: Completed. Bzzoiro integration guidance matches the existing `bzzoiro_api.py` client in the repo.
+>
 ## Overview
 
 [Bzzoiro Sports Data](https://tennis.bzzoiro.com/) provides a **free, unlimited** REST API
@@ -635,14 +637,14 @@ BZZOIRO_KEY = "75407d2e4d270d4442e52a5b6ac18259ed396b69"
 
 ## 8. Summary of Recommendations
 
-1. **Create `bzzoiro_api.py`** (code in §5) and commit it.  
-2. **Switch schedule source**: replace `matchstat_api.get_today_odds()` with
+1. [x] **Create `bzzoiro_api.py`** (code in §5) and commit it.  
+2. [ ] **Switch schedule source**: replace `matchstat_api.get_today_odds()` with
    `bzzoiro_api.get_today_matches_with_predictions()` — eliminates the 500-call/month
    budget risk as the primary concern. Keep Matchstat for H2H.  
-3. **Add live scores ticker** (§6a) — the `/api/live/` endpoint is the only source in
+3. [ ] **Add live scores ticker** (§6a) — the `/api/live/` endpoint is the only source in
    the stack that provides real-time game scores with serving player.  
-4. **Show Bzzoiro predictions as a second-opinion overlay** (§6b) alongside our model —
+4. [x] **Show Bzzoiro predictions as a second-opinion overlay** (§6b) alongside our model —
    especially useful for calibration and identifying divergence.  
-5. **Add WTA tab** using `get_today_matches_with_predictions(circuit="WTA")`.  
-6. **Update ELO Rankings tab** to show live official rankings from `/api/rankings/` (§6c).  
-7. **Add `BZZOIRO_KEY` to `.streamlit/secrets.toml`** for Streamlit Cloud deployment (§7).
+5. [x] **Add WTA tab** using `get_today_matches_with_predictions(circuit="WTA")`.  
+6. [x] **Update ELO Rankings tab** to show live official rankings from `/api/rankings/` (§6c).  
+7. [x] **Add `BZZOIRO_KEY` to `.streamlit/secrets.toml`** for Streamlit Cloud deployment (§7).

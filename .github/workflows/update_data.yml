@@ -36,6 +36,22 @@ jobs:
       - name: Update TML data (current year + TD supplement)
         run: python update_tml_data.py --supplement
 
+      # ── 3b. Snapshot today's Flashscore pre-match odds ────────────────────
+      # Appends one row per (match × bookmaker) to
+      # data_files/flashscore_odds_history.csv, keyed on event_id + bookmaker
+      # + date so re-runs on the same day are idempotent.
+      # Failure is non-fatal — odds are supplemental; match data is primary.
+      - name: Fetch Flashscore odds snapshot
+        run: python fetch_today_odds.py || echo "[warn] Flashscore odds fetch failed — continuing"
+      # ── 3c. Snapshot today's Odds API odds ───────────────────────────────
+      # Writes data_files/odds_api_today.json — one record per match with
+      # the tightest-overround bookmaker. Stamped with today's UTC date so
+      # the app can detect stale data. Idempotent: no-op if already run today.
+      # Failure is non-fatal; requires ODDS_API_KEY secret to be set.
+      - name: Fetch Odds API snapshot
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python fetch_odds_api.py || echo "[warn] Odds API fetch failed — continuing"
       # ── 4. Rebuild feature matrix ──────────────────────────────────────────
       # Reads all TML files 2020-present, computes rolling ELO, serve stats,
       # recent form, etc. and writes data_files/features_2020_present.parquet
@@ -68,6 +84,8 @@ jobs:
                   data_files/tennis_predictor.pkl \
                   data_files/prediction_backlog.parquet \
                   data_files/2026.xlsx \
+                  data_files/flashscore_odds_history.csv \
+                  data_files/odds_api_today.json \
                   || true
           # Only commit if there's actually something staged
           git diff --cached --quiet || \

@@ -1,5 +1,9 @@
 # Project Roadmap
 
+> Status: Roadmap structure is valid. Core data and feature tasks are implemented, but several referenced file names need alignment with the current repo.
+>
+> Completed: ATP/TML data acquisition, feature engineering, modeling pipeline, odds integration, and Streamlit app structure.
+>
 ## Tennis Analytics & Betting Platform
 
 A Streamlit-based web application for tennis match predictions, ELO rankings, live schedules, and value-bet identification.

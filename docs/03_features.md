@@ -1,5 +1,7 @@
 # Feature Engineering
 
+> Status: Completed. The feature engineering pipeline exists in `features.py`, including chronological ELO, rolling serve stats, and recent form features.
+>
 ## Overview
 
 Features are computed **chronologically** — for each match we use only information available *before* that match. This prevents data leakage and mirrors how the model will be used at prediction time.

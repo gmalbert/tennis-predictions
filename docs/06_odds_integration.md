@@ -1,5 +1,7 @@
 # Odds Integration & Value Betting
 
+> Status: Partial. The overall value betting approach is implemented, but the actual repo uses `bzzoiro_api.py` and `matchstat_api.py` rather than a standalone `odds_api.py` client.
+>
 ## Overview
 
 Live bookmaker odds are fetched from **The Odds API**. By comparing our model's win probability to the bookmaker's implied probability, we identify **value bets** — situations where our edge exceeds the bookmaker's margin.
