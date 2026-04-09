@@ -1,3 +1,4 @@
+import json
 import os
 from datetime import date
 
@@ -189,12 +190,69 @@ def load_atp_rankings_live(top: int = 200) -> pd.DataFrame:
     except Exception:
         return pd.DataFrame()
 
-features         = load_features()
-today_matches    = load_today_matches("ATP")
-wta_matches      = load_today_matches("WTA")
-live_scores_atp  = load_live_scores("ATP")
-predictor        = load_predictor()
-model_data       = load_model_data()
+
+@st.cache_data(ttl=120)
+def load_flashscore_odds() -> dict[tuple, dict]:
+    """
+    Fetches live Flashscore odds for today's matches.
+    Returns a dict keyed by (_norm(p1), _norm(p2)) → best-odds row dict,
+    selecting the bookmaker with the tightest overround per match.
+    Falls back to an empty dict on any error.
+    """
+    try:
+        from flashscore_odds import fetch_flashscore_odds
+        rows = fetch_flashscore_odds(request_delay_s=0.3)
+    except Exception:
+        return {}
+    by_match: dict[tuple, dict] = {}
+    for row in rows:
+        o1, o2 = row.get("p1_odds"), row.get("p2_odds")
+        if not (o1 and o2 and o1 > 1 and o2 > 1):
+            continue
+        key = (_norm(row["p1"]), _norm(row["p2"]))
+        if key in by_match:
+            ex = by_match[key]
+            ex_o1, ex_o2 = ex.get("p1_odds", 1), ex.get("p2_odds", 1)
+            if (1 / ex_o1 + 1 / ex_o2) <= (1 / o1 + 1 / o2):
+                continue  # existing row has equal or tighter margin — keep it
+        by_match[key] = row
+    return by_match
+
+
+@st.cache_data(ttl=3600)
+def load_odds_api_today() -> dict[tuple, dict]:
+    """
+    Load today's cached Odds API tennis odds from data_files/odds_api_today.json.
+    Returns a dict keyed by (_norm(p1), _norm(p2)) → match dict.
+    Falls back to empty dict if file is missing, stale, or unreadable.
+    The file is written once per day by fetch_odds_api.py (nightly workflow).
+    """
+    path = os.path.join(DATA_DIR, "odds_api_today.json")
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path) as fh:
+            payload = json.load(fh)
+        if payload.get("date_fetched") != str(date.today()):
+            return {}  # stale — nightly job hasn't refreshed yet
+        result: dict[tuple, dict] = {}
+        for m in payload.get("matches", []):
+            p1 = m.get("player1", "")
+            p2 = m.get("player2", "")
+            result[(_norm(p1), _norm(p2))] = m
+        return result
+    except Exception:
+        return {}
+
+
+features            = load_features()
+today_matches       = load_today_matches("ATP")
+wta_matches         = load_today_matches("WTA")
+live_scores_atp     = load_live_scores("ATP")
+predictor           = load_predictor()
+model_data          = load_model_data()
+flashscore_odds_map = load_flashscore_odds()
+odds_api_map        = load_odds_api_today()
 
 # ── Custom CSS ────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -370,9 +428,32 @@ with tab_today:
             o1, o2 = m["odds_p1"], m["odds_p2"]
             surf   = norm_surface(m.get("surface"))
 
+            # ── Flashscore odds supplement (fallback when Matchstat has none) ──
+            _fs_key = (_norm(p1), _norm(p2))
+            _fs_rev = (_norm(p2), _norm(p1))
+            _fs = flashscore_odds_map.get(_fs_key) or flashscore_odds_map.get(_fs_rev)
+            _fs_flipped = _fs is not None and _fs_key not in flashscore_odds_map
+            if _fs:
+                fs_o1 = _fs.get("p2_odds" if _fs_flipped else "p1_odds")
+                fs_o2 = _fs.get("p1_odds" if _fs_flipped else "p2_odds")
+                fs_bk = _fs.get("bookmaker_name")
+            else:
+                fs_o1 = fs_o2 = fs_bk = None
+            # ── Odds API supplement ───────────────────────────────────────────
+            _oa = odds_api_map.get(_fs_key) or odds_api_map.get(_fs_rev)
+            _oa_flipped = _oa is not None and _fs_key not in odds_api_map
+            if _oa:
+                oa_o1 = _oa.get("player2_odds" if _oa_flipped else "player1_odds")
+                oa_o2 = _oa.get("player1_odds" if _oa_flipped else "player2_odds")
+            else:
+                oa_o1 = oa_o2 = None
+            # Effective odds: Matchstat → Odds API → Flashscore
+            eff_o1 = o1 if (o1 and o1 > 1) else oa_o1 if (oa_o1 and oa_o1 > 1) else fs_o1
+            eff_o2 = o2 if (o2 and o2 > 1) else oa_o2 if (oa_o2 and oa_o2 > 1) else fs_o2
+
             # Market implied probability (devigged)
-            if o1 and o2 and o1 > 1 and o2 > 1:
-                raw1, raw2 = 1 / o1, 1 / o2
+            if eff_o1 and eff_o2 and eff_o1 > 1 and eff_o2 > 1:
+                raw1, raw2 = 1 / eff_o1, 1 / eff_o2
                 tot  = raw1 + raw2
                 mkt1 = raw1 / tot
             else:
@@ -386,7 +467,7 @@ with tab_today:
             )
             if model_reliable:
                 try:
-                    _w, p1_prob = predictor.predict(p1, p2, surf)
+                    _w, p1_prob = predictor.predict(p1, p2, surf, market_prob_p1=mkt1)
                 except Exception:
                     p1_prob = mkt1
             else:
@@ -403,10 +484,13 @@ with tab_today:
 
             enriched.append({
                 **m,
-                "status": status,
-                "p1_prob": p1_prob,
-                "elo1":    latest_elo(p1),
-                "elo2":    latest_elo(p2),
+                "status":      status,
+                "p1_prob":     p1_prob,
+                "elo1":        latest_elo(p1),
+                "elo2":        latest_elo(p2),
+                "fs_p1_odds":  fs_o1,
+                "fs_p2_odds":  fs_o2,
+                "fs_bookmaker": fs_bk,
             })
 
         # ── Summary metrics ────────────────────────────────────────────────────
@@ -485,6 +569,12 @@ with tab_today:
             for m in matches:
                 p1, p2      = m["player1_name"], m["player2_name"]
                 o1, o2      = m["odds_p1"],      m["odds_p2"]
+                fs_o1, fs_o2 = m.get("fs_p1_odds"), m.get("fs_p2_odds")
+                fs_bk        = m.get("fs_bookmaker")
+                # Use Flashscore odds in display when Matchstat odds are absent
+                disp_o1 = o1 if (o1 and o1 > 1) else fs_o1
+                disp_o2 = o2 if (o2 and o2 > 1) else fs_o2
+                using_fs_odds = not (o1 and o1 > 1) and bool(disp_o1)
                 prob        = m.get("p1_prob")
                 e1, e2      = m.get("elo1"),      m.get("elo2")
                 status      = m["status"]
@@ -515,7 +605,7 @@ with tab_today:
                     pred_html = '<span class="prediction-low">no prediction</span>'
 
                 elo_str  = f" · ELO {e1:.0f} vs {e2:.0f}" if (e1 and e2) else ""
-                odds_str = f" · {o1:.2f} / {o2:.2f}"    if (o1 and o2) else ""
+                odds_str = f" · {disp_o1:.2f} / {disp_o2:.2f}" if (disp_o1 and disp_o2) else ""
 
                 st.markdown(
                     f'<div class="match-card">'
@@ -541,6 +631,10 @@ with tab_today:
                         f"🤖 Bzzoiro: {p1} {float(_bzz_p1) * 100:.0f}% · "
                         f"confidence {float(_bzz_conf) * 100:.0f}%{_detail}"
                     )
+                # Flashscore odds caption (shown when used as fallback)
+                if using_fs_odds and fs_o1 and fs_o2:
+                    _bk_label = f" ({fs_bk})" if fs_bk else ""
+                    st.caption(f"📊 Flashscore{_bk_label}: {disp_o1:.2f} / {disp_o2:.2f}")
 
         # ── Legend ─────────────────────────────────────────────────────────────
         st.markdown(
@@ -621,16 +715,39 @@ with tab_wta:
                 _bzz_p1  = _m.get("bzz_prob_p1")
                 _bzz_conf = _m.get("bzz_confidence")
 
+                # Flashscore odds supplement for WTA
+                _fs_key  = (_norm(_p1), _norm(_p2))
+                _fs_rev_wta = (_norm(_p2), _norm(_p1))
+                _fs = flashscore_odds_map.get(_fs_key) or flashscore_odds_map.get(_fs_rev_wta)
+                _fs_flipped = _fs is not None and _fs_key not in flashscore_odds_map
+                if _fs:
+                    _fs_o1 = _fs.get("p2_odds" if _fs_flipped else "p1_odds")
+                    _fs_o2 = _fs.get("p1_odds" if _fs_flipped else "p2_odds")
+                    _fs_bk = _fs.get("bookmaker_name")
+                else:
+                    _fs_o1 = _fs_o2 = _fs_bk = None
+                # Odds API supplement for WTA
+                _oa_wta = odds_api_map.get(_fs_key) or odds_api_map.get(_fs_rev_wta)
+                _oa_wta_flipped = _oa_wta is not None and _fs_key not in odds_api_map
+                if _oa_wta:
+                    _oa_o1 = _oa_wta.get("player2_odds" if _oa_wta_flipped else "player1_odds")
+                    _oa_o2 = _oa_wta.get("player1_odds" if _oa_wta_flipped else "player2_odds")
+                else:
+                    _oa_o1 = _oa_o2 = None
+                _disp_o1 = _o1 if (_o1 and _o1 > 1) else _oa_o1 if (_oa_o1 and _oa_o1 > 1) else _fs_o1
+                _disp_o2 = _o2 if (_o2 and _o2 > 1) else _oa_o2 if (_oa_o2 and _oa_o2 > 1) else _fs_o2
+                _using_fs = not (_o1 and _o1 > 1) and bool(_disp_o1)
+
                 # Probability — Bzzoiro predictions are already 0-1 fractions
                 if _bzz_p1 is not None:
                     _prob = float(_bzz_p1)
-                elif _o1 and _o2 and _o1 > 1 and _o2 > 1:
-                    _raw1, _raw2 = 1 / _o1, 1 / _o2
+                elif _disp_o1 and _disp_o2 and _disp_o1 > 1 and _disp_o2 > 1:
+                    _raw1, _raw2 = 1 / _disp_o1, 1 / _disp_o2
                     _prob = _raw1 / (_raw1 + _raw2)
                 else:
                     _prob = None
 
-                _odds_str = f" · {_o1:.2f} / {_o2:.2f}" if (_o1 and _o2) else ""
+                _odds_str = f" · {_disp_o1:.2f} / {_disp_o2:.2f}" if (_disp_o1 and _disp_o2) else ""
 
                 if _prob is not None:
                     _p2_prob = 1 - _prob
@@ -668,6 +785,10 @@ with tab_wta:
                         f"🤖 Bzzoiro: {_p1} {float(_bzz_p1) * 100:.0f}% · "
                         f"confidence {float(_bzz_conf) * 100:.0f}%{_detail}"
                     )
+                # Flashscore odds caption (shown when used as fallback for WTA)
+                if _using_fs and _fs_o1 and _fs_o2:
+                    _bk_lbl = f" ({_fs_bk})" if _fs_bk else ""
+                    st.caption(f"📊 Flashscore{_bk_lbl}: {_disp_o1:.2f} / {_disp_o2:.2f}")
 
     add_betting_oracle_footer()
 

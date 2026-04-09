@@ -113,10 +113,13 @@ class MatchPredictor:
         height2: float | None = None,
         age1: float | None = None,
         age2: float | None = None,
+        market_prob_p1: float | None = None,
     ) -> np.ndarray:
         """
         Build the FEATURE_COLS vector for a future match.
         rank, height, age default to 0 (neutral difference) when unknown.
+        market_prob_p1: devigged implied probability for p1 from live odds
+            (e.g. from Flashscore or Matchstat).  Pass None to use neutral (0.0).
         """
         elo1   = self._latest_elo(p1)
         elo2   = self._latest_elo(p2)
@@ -142,8 +145,10 @@ class MatchPredictor:
             "rank_diff":        r2 - r1,        # positive = p1 ranked higher
             "height_diff":      ht1 - ht2,
             "age_diff":         a1 - a2,
+            # 2*p1_mkt_prob - 1 → signed diff; 0.0 = neutral (no odds available)
+            "mkt_prob_diff":    (2.0 * market_prob_p1 - 1.0) if market_prob_p1 is not None else 0.0,
         }
-        return np.array([vec[f] for f in self.feature_names], dtype=float).reshape(1, -1)
+        return np.array([vec[f] for f in self.feature_names if f in vec], dtype=float).reshape(1, -1)
 
     # ------------------------------------------------------------------
     def predict(

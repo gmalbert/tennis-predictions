@@ -1,10 +1,12 @@
 # Live Scheduling & Match Data
 
+> Status: Partial. Flashscore parsing is implemented, and the Streamlit app uses Matchstat / Bzzoiro for live schedule data. The document should be updated to reflect actual repo file names and Bzzoiro usage.
+>
 ## Overview
 
 The app fetches **today's matches** from two sources:
-1. **Flashscore** (primary) — comprehensive coverage: ATP, WTA, Challengers, ITF, doubles.
-2. **ESPN** (fallback) — ATP + WTA main tour only.
+1. [ ] **Flashscore** (primary) — comprehensive coverage: ATP, WTA, Challengers, ITF, doubles. (Parser exists, but not integrated into the current app live schedule source.)
+2. [x] **ESPN** (fallback) — ATP + WTA main tour only.
 
 Results are cached for 2 minutes to avoid excessive requests and sorted by status: `live > starting_soon > upcoming > scheduled`.
 
@@ -482,9 +484,9 @@ def match_player_to_database(api_name: str, player_names: Dict[int, str]) -> Opt
     Match a schedule API name to a player_id in our database.
 
     Strategy:
-    1. Exact normalized match (O(1))
-    2. Unique last-name match (O(1))
-    3. Substring fallback (O(n))
+    1. [x] Exact normalized match (O(1))
+    2. [x] Unique last-name match (O(1))
+    3. [x] Substring fallback (O(n))
     """
     if not api_name or "/" in api_name:
         return None

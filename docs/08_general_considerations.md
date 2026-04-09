@@ -1,14 +1,16 @@
 # General Considerations
 
+> Status: Partial. Deployment and caching guidance are solid, but several referenced filenames are outdated and should be aligned with the current repo.
+>
 ## 1. Deployment
 
 ### Streamlit Cloud (Recommended)
 
-1. Push repo to GitHub.
-2. Go to https://share.streamlit.io → **New App**.
-3. Set **Main file path** to `predictions.py`.
-4. Add secrets in the Streamlit Cloud dashboard (e.g., `ODDS_API_KEY`).
-5. On first run, `setup_data.py` will clone the ATP data automatically.
+1. [x] Push repo to GitHub.
+2. [x] Go to https://share.streamlit.io → **New App**.
+3. [x] Set **Main file path** to `predictions.py`.
+4. [x] Add secrets in the Streamlit Cloud dashboard (e.g., `ODDS_API_KEY`).
+5. [ ] On first run, `setup_data.py` will clone the ATP data automatically. (Note: `setup_data.py` is not present in the current repo.)
 
 **Requirements for Streamlit Cloud:**
 - `requirements.txt` at repo root

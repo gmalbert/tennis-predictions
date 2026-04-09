@@ -150,7 +150,7 @@ def train_all_models(
     print("-" * 60)
     best_acc = max(v["accuracy"] for v in results.values())
     for name, data in results.items():
-        marker = " ◀" if data["accuracy"] == best_acc else ""
+        marker = " <--" if data["accuracy"] == best_acc else ""
         print(
             f"  {name:<20} {data['accuracy']:>6.2%} {data['auc']:>7.3f}"
             f" {data['brier']:>8.4f} {data['log_loss']:>9.4f}{marker}"
@@ -253,10 +253,10 @@ def main(test_year: int = 2025, train_nn: bool = True) -> dict:
         df, FEATURE_COLS, test_year=test_year
     )
 
-    print(f"\nRunning ELO-only baseline on {len(y_test):,} test rows …")
+    print(f"\nRunning ELO-only baseline on {len(y_test):,} test rows ...")
     elo_metrics = elo_baseline(X_test, y_test)
 
-    print(f"\nTraining models (train ≤{test_year-1}, test ≥{test_year}) …")
+    print(f"\nTraining models (train <= {test_year-1}, test >= {test_year}) ...")
     results = train_all_models(X_train, y_train, X_test, y_test, FEATURE_COLS, train_nn)
 
     meta = {

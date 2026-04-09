@@ -1,6 +1,6 @@
 # Streamlit Layout & UI
-
-## Overview
+> Status: Partial. The UI layout description largely matches `predictions.py`, though the current app actually includes both ATP and WTA tabs plus a Match Explorer and Model Stats page.
+>## Overview
 
 The app uses a **sidebar navigation** pattern with 7 pages. The layout is `"wide"` mode with custom CSS for match cards, confidence meters, and a bookie-slip widget.
 

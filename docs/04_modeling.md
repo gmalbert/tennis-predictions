@@ -1,5 +1,7 @@
 # Modeling
 
+> Status: Mostly completed. The modeling pipeline is implemented in `train.py`, and model serialization/loading exists. Some referenced script names should be updated to match the repo (`tennis_predictor.py` is not present).
+>
 ## Overview
 
 We train several classifiers and compare them against an ELO-only baseline. The best model (typically XGBoost at ~70%) is serialized with the ELO state for serving in the Streamlit app.

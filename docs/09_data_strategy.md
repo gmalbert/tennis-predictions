@@ -1,5 +1,7 @@
 # Data Pulling Strategy
 
+> Status: Completed. Source strategy and scraper status are accurate and consistent with the current repo's data-acquisition approach.
+>
 ## TL;DR
 
 | Layer | Source | Years | Cost | Script |
@@ -106,10 +108,10 @@ Cross-join with tennis-data.co.uk on (winner_name + loser_name + approximate dat
 serve stats AND odds in the same row.
 
 ### Recommended merged training set:
-1. Start with tennis-data.co.uk for 2000–2025 (result + odds + rankings + set scores)
-2. Left-join Sackmann serve stats on matching match keys
-3. Fill ~70% of rows with serve stats (availability depends on year and tier)
-4. For 2025 specifically: td_atp_2025.csv exists; Sackmann 2025 will be released ~Jan 2026
+1. [x] Start with tennis-data.co.uk for 2000–2025 (result + odds + rankings + set scores)
+2. [x] Left-join Sackmann serve stats on matching match keys
+3. [x] Fill ~70% of rows with serve stats (availability depends on year and tier)
+4. [ ] For 2025 specifically: td_atp_2025.csv exists; Sackmann 2025 will be released ~Jan 2026
 
 ---
 
@@ -178,10 +180,10 @@ All four custom scrapers were built and tested. None are currently viable for pr
 - All scrapers: blocked or broken
 
 Options:
-1. **Accept the gap** — if your model only needs to predict main-tour matches, this isn't an issue
-2. **Wait for Sackmann** — 2025 file expected ~Jan 2026; until then, 2024 challenger data is available
-3. **Tennis Abstract scraper** — fix the rate-limiting (e.g., run with `--max-players 200` overnight with 4s delay)
-4. **Sofascore API** (undocumented) — community projects like `sofascore-api` reverse-engineered their internal API; worth investigating if Challenger coverage is required
+1. [x] **Accept the gap** — if your model only needs to predict main-tour matches, this isn't an issue
+2. [ ] **Wait for Sackmann** — 2025 file expected ~Jan 2026; until then, 2024 challenger data is available
+3. [ ] **Tennis Abstract scraper** — fix the rate-limiting (e.g., run with `--max-players 200` overnight with 4s delay)
+4. [ ] **Sofascore API** (undocumented) — community projects like `sofascore-api` reverse-engineered their internal API; worth investigating if Challenger coverage is required
 
 ---
 

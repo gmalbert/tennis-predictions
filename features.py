@@ -53,6 +53,7 @@ FEATURE_COLS = [
     "rank_diff",
     "height_diff",
     "age_diff",
+    "mkt_prob_diff",   # market implied prob diff (2*mkt_prob_w - 1); 0 when unavailable
 ]
 
 
@@ -490,6 +491,11 @@ def _market_features(df: pd.DataFrame) -> pd.DataFrame:
 
     df = df.copy()
     df["mkt_prob_w"] = probs
+    # Signed diff: 2*p - 1  → ranges from -1 (market strongly favours loser) to +1 (strongly favours winner)
+    # Rows without odds get 0.0 so the signal is neutral rather than dropped from training.
+    df["mkt_prob_diff"] = df["mkt_prob_w"].apply(
+        lambda p: 2.0 * p - 1.0 if not np.isnan(p) else 0.0
+    )
     filled = sum(1 for p in probs if not np.isnan(p))
     print(f"Market prob: {filled:,}/{len(df):,} rows filled ({filled/len(df)*100:.1f}%)")
     return df
@@ -657,6 +663,7 @@ OUTPUT_COLS = [
     "streak_w", "streak_l",
     # Market
     "mkt_prob_w",
+    "mkt_prob_diff",   # signed diff; 0 when odds unavailable
     # Raw odds (kept for reference / model calibration)
     "B365W", "B365L", "PSW", "PSL", "AvgW", "AvgL",
     # Result (label for training — winner is always player_w by convention)

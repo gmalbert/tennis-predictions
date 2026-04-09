@@ -1,5 +1,7 @@
 # Data Acquisition
 
+> Status: Completed. Data acquisition sources and update flow are implemented, including TML refresh, Tennis-data odds enrichment, and Matchstat/Bzzoiro live data integration.
+>
 ## Overview
 
 Data comes from three sources, each serving a distinct role:
@@ -81,9 +83,9 @@ Decimal odds from multiple bookmakers, captured just before match start:
 
 `enrich_with_odds.py` joins tennis-data.co.uk rows onto TML rows using:
 
-1. **Name normalisation** — `_name_keys()` generates 1–2 lookup keys per name handling initials, hyphens, apostrophes, compound surnames (e.g. "Carreno Busta P." and "Pablo Carreno Busta" map to the same key)
-2. **Date proximity** — when two files differ by up to 3 days for the same tournament, the closest date wins
-3. **Adjacent-year lookup** — January tournaments that appear in the previous year's xlsx are handled automatically
+1. [x] **Name normalisation** — `_name_keys()` generates 1–2 lookup keys per name handling initials, hyphens, apostrophes, compound surnames (e.g. "Carreno Busta P." and "Pablo Carreno Busta" map to the same key)
+2. [x] **Date proximity** — when two files differ by up to 3 days for the same tournament, the closest date wins
+3. [x] **Adjacent-year lookup** — January tournaments that appear in the previous year's xlsx are handled automatically
 
 > **Status:** script executed for 2020–2025; combined CSV produced with 81.5% odds match rate.
 
@@ -109,10 +111,10 @@ These cannot be recovered by improving name matching. They are excluded from odd
 
 ### How to re-run enrichment (manual, once per year) ✅
 
-1. Download the new year's xlsx manually from `https://www.tennis-data.co.uk/YYYY/YYYY.xlsx` (browser only — SSL blocks automated download)
-2. Place in `data_files/`
-3. Run: `python enrich_with_odds.py --year YYYY`
-4. Run: `python features.py` to rebuild the feature matrix
+1. [ ] Download the new year's xlsx manually from `https://www.tennis-data.co.uk/YYYY/YYYY.xlsx` (browser only — SSL blocks automated download)
+2. [x] Place in `data_files/`
+3. [x] Run: `python enrich_with_odds.py --year YYYY`
+4. [x] Run: `python features.py` to rebuild the feature matrix
 
 This is intentionally **not automated in CI** because tennis-data.co.uk only publishes the full-year file after the season ends.
 
