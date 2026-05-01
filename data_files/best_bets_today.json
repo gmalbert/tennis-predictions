@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "sport": "Tennis",
+    "generated_at": "2026-04-30T02:04:34.024543+00:00",
+    "model_version": "1.0.0",
+    "season": "2026"
+  },
+  "bets": [
+    {
+      "game_date": "2026-04-29",
+      "game_time": "13:00",
+      "game": "Sinner J. vs Alcaraz C.",
+      "home_team": "Sinner J.",
+      "away_team": "Alcaraz C.",
+      "bet_type": "Match Winner",
+      "pick": "Sinner J.",
+      "confidence": 0.72,
+      "edge": 0.22,
+      "tier": "Strong",
+      "odds": null,
+      "line": null,
+      "notes": "Surface: Clay"
+    },
+    {
+      "game_date": "2026-04-29",
+      "game_time": "11:00",
+      "game": "Djokovic N. vs Medvedev D.",
+      "home_team": "Djokovic N.",
+      "away_team": "Medvedev D.",
+      "bet_type": "Match Winner",
+      "pick": "Djokovic N.",
+      "confidence": 0.68,
+      "edge": 0.18,
+      "tier": "Good",
+      "odds": null,
+      "line": null,
+      "notes": "Surface: Clay"
+    }
+  ]
+}

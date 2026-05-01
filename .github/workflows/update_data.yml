@@ -71,6 +71,13 @@ jobs:
       - name: Compute prediction backlog
         run: python compute_backlog.py --days 90
 
+      # ── 6b. Export best bets for Sports Picks Grid ────────────────────────
+      - name: Export best bets for Sports Picks Grid
+        run: python scripts/export_best_bets.py
+        continue-on-error: true
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+
       # ── 7. Commit any changes ──────────────────────────────────────────────
       # Only creates a commit if files actually changed.
       - name: Commit updated data
@@ -86,6 +93,7 @@ jobs:
                   data_files/2026.xlsx \
                   data_files/flashscore_odds_history.csv \
                   data_files/odds_api_today.json \
+                  data_files/best_bets_today.json \
                   || true
           # Only commit if there's actually something staged
           git diff --cached --quiet || \
