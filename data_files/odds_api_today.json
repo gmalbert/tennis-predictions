@@ -1,0 +1,30 @@
+{
+  "date_fetched": "2026-05-02",
+  "fetched_at": "2026-05-02T05:47:52Z",
+  "matches": [
+    {
+      "player1": "Jannik Sinner",
+      "player2": "Alexander Zverev",
+      "player1_odds": 1.19,
+      "player2_odds": 6.0,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.8345,
+      "p2_prob": 0.1655,
+      "overround": 1.007,
+      "commence_time": "2026-05-03T15:00:00Z",
+      "sport_key": "tennis_atp_madrid_open"
+    },
+    {
+      "player1": "Mirra Andreeva",
+      "player2": "Marta Kostyuk",
+      "player1_odds": 1.75,
+      "player2_odds": 2.32,
+      "bookmaker": "Matchbook",
+      "p1_prob": 0.57,
+      "p2_prob": 0.43,
+      "overround": 1.0025,
+      "commence_time": "2026-05-02T15:00:00Z",
+      "sport_key": "tennis_wta_madrid_open"
+    }
+  ]
+}
