@@ -324,3 +324,51 @@ date_fetched,fetched_at,event_id,ts_start,tourney,surface,p1,p2,wu,wv,bookmaker_
 2026-05-08,2026-05-08T05:41:30Z,GMdOYKNH,1778252400,"WTA - SINGLES: Rome (Italy), clay",clay,Svitolina E.,Basiletti N.,monfils-elina,basiletti-noemi,851,BetMGM.us,1.04,10.5,1.04,10.5
 2026-05-08,2026-05-08T05:41:30Z,631cLOAa,1778259600,"WTA - SINGLES: Rome (Italy), clay",clay,Navarro E.,Cocciaretto E.,navarro-emma,cocciaretto-elisabetta,851,BetMGM.us,2.55,1.5,2.18,1.67
 2026-05-08,2026-05-08T05:41:30Z,631cLOAa,1778259600,"WTA - SINGLES: Rome (Italy), clay",clay,Navarro E.,Cocciaretto E.,navarro-emma,cocciaretto-elisabetta,549,bet365.us,2.38,1.57,1.73,2.1
+2026-05-09,2026-05-09T05:55:13Z,zRHnycsm,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Machac T.,Medvedev D.,machac-tomas,medvedev-daniil,549,bet365.us,2.3,1.62,2.5,1.53
+2026-05-09,2026-05-09T05:55:13Z,zRHnycsm,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Machac T.,Medvedev D.,machac-tomas,medvedev-daniil,851,BetMGM.us,2.2,1.65,2.45,1.53
+2026-05-09,2026-05-09T05:55:13Z,ALXkZFf2,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Moutet C.,Llamas Ruiz P.,moutet-corentin,llamas-ruiz-pablo,549,bet365.us,1.73,2.1,1.91,1.91
+2026-05-09,2026-05-09T05:55:13Z,ALXkZFf2,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Moutet C.,Llamas Ruiz P.,moutet-corentin,llamas-ruiz-pablo,851,BetMGM.us,1.7,2.1,1.72,2.1
+2026-05-09,2026-05-09T05:55:13Z,xnrNaNZ1,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Rublev A.,Kecmanovic M.,rublev-andrey,kecmanovic-miomir,851,BetMGM.us,1.4,2.9,1.42,2.85
+2026-05-09,2026-05-09T05:55:13Z,xnrNaNZ1,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Rublev A.,Kecmanovic M.,rublev-andrey,kecmanovic-miomir,549,bet365.us,1.36,3.2,1.4,3.0
+2026-05-09,2026-05-09T05:55:13Z,6wEhQ4bU,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Tirante T. A.,Norrie C.,tirante-thiago-agustin,norrie-cameron,851,BetMGM.us,2.3,1.6,2.2,1.65
+2026-05-09,2026-05-09T05:55:13Z,6wEhQ4bU,1778317200,"ATP - SINGLES: Rome (Italy), clay",clay,Tirante T. A.,Norrie C.,tirante-thiago-agustin,norrie-cameron,549,bet365.us,2.3,1.62,2.2,1.67
+2026-05-09,2026-05-09T05:55:13Z,MHhspTPq,1778322600,"ATP - SINGLES: Rome (Italy), clay",clay,Auger-Aliassime F.,Navone M.,auger-aliassime-felix,navone-mariano,851,BetMGM.us,1.53,2.45,1.57,2.35
+2026-05-09,2026-05-09T05:55:13Z,MHhspTPq,1778322600,"ATP - SINGLES: Rome (Italy), clay",clay,Auger-Aliassime F.,Navone M.,auger-aliassime-felix,navone-mariano,549,bet365.us,1.53,2.5,1.57,2.38
+2026-05-09,2026-05-09T05:55:13Z,KOCQBDmS,1778322600,"ATP - SINGLES: Rome (Italy), clay",clay,Cilic M.,Landaluce M.,cilic-marin,landaluce-martin,851,BetMGM.us,1.55,2.4,1.6,2.3
+2026-05-09,2026-05-09T05:55:13Z,KOCQBDmS,1778322600,"ATP - SINGLES: Rome (Italy), clay",clay,Cilic M.,Landaluce M.,cilic-marin,landaluce-martin,549,bet365.us,1.57,2.38,1.62,2.3
+2026-05-09,2026-05-09T05:55:13Z,rBg8efLH,1778322600,"ATP - SINGLES: Rome (Italy), clay",clay,Etcheverry T. M.,Bellucci M.,etcheverry-tomas-martin,bellucci-mattia,851,BetMGM.us,1.3,3.4,1.34,3.2
+2026-05-09,2026-05-09T05:55:13Z,rBg8efLH,1778322600,"ATP - SINGLES: Rome (Italy), clay",clay,Etcheverry T. M.,Bellucci M.,etcheverry-tomas-martin,bellucci-mattia,549,bet365.us,1.3,3.5,1.33,3.4
+2026-05-09,2026-05-09T05:55:13Z,p6MTO9K5,1778328000,"ATP - SINGLES: Rome (Italy), clay",clay,Basilashvili N.,Shelton B.,basilashvili-nikoloz,shelton-ben,851,BetMGM.us,3.9,1.25,4.0,1.24
+2026-05-09,2026-05-09T05:55:13Z,p6MTO9K5,1778328000,"ATP - SINGLES: Rome (Italy), clay",clay,Basilashvili N.,Shelton B.,basilashvili-nikoloz,shelton-ben,549,bet365.us,4.0,1.25,4.0,1.25
+2026-05-09,2026-05-09T05:55:13Z,tGxA5h6N,1778328000,"ATP - SINGLES: Rome (Italy), clay",clay,Cobolli F.,Atmane T.,cobolli-flavio,atmane-terence,851,BetMGM.us,1.3,3.4,1.3,3.4
+2026-05-09,2026-05-09T05:55:13Z,tGxA5h6N,1778328000,"ATP - SINGLES: Rome (Italy), clay",clay,Cobolli F.,Atmane T.,cobolli-flavio,atmane-terence,549,bet365.us,1.33,3.4,1.4,3.0
+2026-05-09,2026-05-09T05:55:13Z,byHJkddt,1778328000,"ATP - SINGLES: Rome (Italy), clay",clay,Garin C.,Davidovich Fokina A.,garin-cristian,davidovich-fokina-alejandro,851,BetMGM.us,2.25,1.62,2.2,1.65
+2026-05-09,2026-05-09T05:55:13Z,byHJkddt,1778328000,"ATP - SINGLES: Rome (Italy), clay",clay,Garin C.,Davidovich Fokina A.,garin-cristian,davidovich-fokina-alejandro,549,bet365.us,2.3,1.62,2.2,1.67
+2026-05-09,2026-05-09T05:55:13Z,rFHMNQfM,1778333400,"ATP - SINGLES: Rome (Italy), clay",clay,Medjedovic H.,Fonseca J.,medjedovic-hamad,fonseca-joao,851,BetMGM.us,2.45,1.53,2.75,1.44
+2026-05-09,2026-05-09T05:55:13Z,rFHMNQfM,1778333400,"ATP - SINGLES: Rome (Italy), clay",clay,Medjedovic H.,Fonseca J.,medjedovic-hamad,fonseca-joao,549,bet365.us,2.63,1.5,3.0,1.4
+2026-05-09,2026-05-09T05:55:13Z,WAjXTKIM,1778333400,"ATP - SINGLES: Rome (Italy), clay",clay,Nakashima B.,Bautista-Agut R.,nakashima-brandon,bautista-agut-roberto,851,BetMGM.us,1.53,2.45,1.44,2.75
+2026-05-09,2026-05-09T05:55:13Z,WAjXTKIM,1778333400,"ATP - SINGLES: Rome (Italy), clay",clay,Nakashima B.,Bautista-Agut R.,nakashima-brandon,bautista-agut-roberto,549,bet365.us,1.5,2.63,1.67,2.2
+2026-05-09,2026-05-09T05:55:13Z,hSu5qsHr,1778333400,"ATP - SINGLES: Rome (Italy), clay",clay,Tiafoe F.,Buse I.,tiafoe-frances,buse-ignacio,851,BetMGM.us,2.3,1.6,2.45,1.53
+2026-05-09,2026-05-09T05:55:13Z,hSu5qsHr,1778333400,"ATP - SINGLES: Rome (Italy), clay",clay,Tiafoe F.,Buse I.,tiafoe-frances,buse-ignacio,549,bet365.us,2.38,1.57,2.1,1.73
+2026-05-09,2026-05-09T05:55:13Z,rNNRX7oo,1778338800,"ATP - SINGLES: Rome (Italy), clay",clay,Popyrin A.,Mensik J.,popyrin-alexei,mensik-jakub,851,BetMGM.us,2.9,1.4,2.9,1.4
+2026-05-09,2026-05-09T05:55:13Z,rNNRX7oo,1778338800,"ATP - SINGLES: Rome (Italy), clay",clay,Popyrin A.,Mensik J.,popyrin-alexei,mensik-jakub,549,bet365.us,3.2,1.36,4.0,1.25
+2026-05-09,2026-05-09T05:55:13Z,lpt7jp56,1778344200,"ATP - SINGLES: Rome (Italy), clay",clay,Pellegrino A.,Fils A.,pellegrino-andrea,arthur-fils,851,BetMGM.us,7.0,1.09,6.5,1.1
+2026-05-09,2026-05-09T05:55:13Z,lpt7jp56,1778344200,"ATP - SINGLES: Rome (Italy), clay",clay,Pellegrino A.,Fils A.,pellegrino-andrea,arthur-fils,549,bet365.us,8.0,1.08,6.5,1.11
+2026-05-09,2026-05-09T05:55:13Z,xhTpdK0l,1778346000,"ATP - SINGLES: Rome (Italy), clay",clay,Sinner J.,Ofner S.,sinner-jannik,ofner-sebastian,851,BetMGM.us,1.01,15.0,1.01,16.0
+2026-05-09,2026-05-09T05:55:13Z,xhTpdK0l,1778346000,"ATP - SINGLES: Rome (Italy), clay",clay,Sinner J.,Ofner S.,sinner-jannik,ofner-sebastian,549,bet365.us,1.01,21.0,1.01,21.0
+2026-05-09,2026-05-09T05:55:13Z,A1aXPeKh,1778317200,"WTA - SINGLES: Rome (Italy), clay",clay,Gauff C.,Sierra S.,gauff-coco,sierra-solana,851,BetMGM.us,1.08,7.25,1.11,6.25
+2026-05-09,2026-05-09T05:55:13Z,A1aXPeKh,1778317200,"WTA - SINGLES: Rome (Italy), clay",clay,Gauff C.,Sierra S.,gauff-coco,sierra-solana,549,bet365.us,1.08,8.0,1.11,6.5
+2026-05-09,2026-05-09T05:55:13Z,S0Ucp9eJ,1778322600,"WTA - SINGLES: Rome (Italy), clay",clay,Oliynykova O.,Noskova L.,oliynykova-oleksandra,noskova-linda,549,bet365.us,3.5,1.3,3.75,1.29
+2026-05-09,2026-05-09T05:55:13Z,S0Ucp9eJ,1778322600,"WTA - SINGLES: Rome (Italy), clay",clay,Oliynykova O.,Noskova L.,oliynykova-oleksandra,noskova-linda,851,BetMGM.us,3.6,1.28,4.25,1.21
+2026-05-09,2026-05-09T05:55:13Z,SKnhaxMh,1778324400,"WTA - SINGLES: Rome (Italy), clay",clay,Paolini J.,Mertens E.,paolini-jasmine,mertens-elise,851,BetMGM.us,2.1,1.7,2.1,1.7
+2026-05-09,2026-05-09T05:55:13Z,SKnhaxMh,1778324400,"WTA - SINGLES: Rome (Italy), clay",clay,Paolini J.,Mertens E.,paolini-jasmine,mertens-elise,549,bet365.us,2.1,1.73,1.91,1.91
+2026-05-09,2026-05-09T05:55:13Z,nHsKyOYj,1778328000,"WTA - SINGLES: Rome (Italy), clay",clay,Zheng Q.,Ostapenko J.,zheng-qinwen,ostapenko-jelena,549,bet365.us,1.44,2.75,1.44,2.75
+2026-05-09,2026-05-09T05:55:13Z,nHsKyOYj,1778328000,"WTA - SINGLES: Rome (Italy), clay",clay,Zheng Q.,Ostapenko J.,zheng-qinwen,ostapenko-jelena,851,BetMGM.us,1.5,2.55,1.44,2.75
+2026-05-09,2026-05-09T05:55:13Z,2RIJHM35,1778329800,"WTA - SINGLES: Rome (Italy), clay",clay,Sabalenka A.,Cirstea S.,sabalenka-aryna,cirstea-sorana,851,BetMGM.us,1.15,5.25,1.15,5.25
+2026-05-09,2026-05-09T05:55:13Z,2RIJHM35,1778329800,"WTA - SINGLES: Rome (Italy), clay",clay,Sabalenka A.,Cirstea S.,sabalenka-aryna,cirstea-sorana,549,bet365.us,1.13,6.0,1.1,7.0
+2026-05-09,2026-05-09T05:55:13Z,2Np9Sx8j,1778338800,"WTA - SINGLES: Rome (Italy), clay",clay,Golubic V.,Andreeva M.,golubic-viktorija,andreeva-mirra,549,bet365.us,13.0,1.04,11.0,1.05
+2026-05-09,2026-05-09T05:55:13Z,2Np9Sx8j,1778338800,"WTA - SINGLES: Rome (Italy), clay",clay,Golubic V.,Andreeva M.,golubic-viktorija,andreeva-mirra,851,BetMGM.us,9.75,1.04,9.75,1.04
+2026-05-09,2026-05-09T05:55:13Z,S8O825Gi,1778338800,"WTA - SINGLES: Rome (Italy), clay",clay,Townsend T.,Jovic I.,townsend-taylor,jovic-iva,851,BetMGM.us,2.1,1.72,2.05,1.75
+2026-05-09,2026-05-09T05:55:13Z,S8O825Gi,1778338800,"WTA - SINGLES: Rome (Italy), clay",clay,Townsend T.,Jovic I.,townsend-taylor,jovic-iva,549,bet365.us,2.2,1.67,2.38,1.57
+2026-05-09,2026-05-09T05:55:13Z,M331p8qn,1778351400,"WTA - SINGLES: Rome (Italy), clay",clay,Bencic B.,Kalinskaya A.,bencic-belinda,kalinskaya-anna,549,bet365.us,1.36,3.2,1.36,3.2
+2026-05-09,2026-05-09T05:55:13Z,M331p8qn,1778351400,"WTA - SINGLES: Rome (Italy), clay",clay,Bencic B.,Kalinskaya A.,bencic-belinda,kalinskaya-anna,851,BetMGM.us,1.34,3.2,1.36,3.1
