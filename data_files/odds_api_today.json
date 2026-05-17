@@ -1,30 +1,18 @@
 {
-  "date_fetched": "2026-05-16",
-  "fetched_at": "2026-05-16T05:59:57Z",
+  "date_fetched": "2026-05-17",
+  "fetched_at": "2026-05-17T06:05:53Z",
   "matches": [
     {
       "player1": "Jannik Sinner",
-      "player2": "Daniil Medvedev",
-      "player1_odds": 1.09,
-      "player2_odds": 11.5,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.9134,
-      "p2_prob": 0.0866,
-      "overround": 1.0044,
-      "commence_time": "2026-05-15T17:23:00Z",
+      "player2": "Casper Ruud",
+      "player1_odds": 1.17,
+      "player2_odds": 6.6,
+      "bookmaker": "Matchbook",
+      "p1_prob": 0.8494,
+      "p2_prob": 0.1506,
+      "overround": 1.0062,
+      "commence_time": "2026-05-17T15:00:00Z",
       "sport_key": "tennis_atp_italian_open"
-    },
-    {
-      "player1": "Coco Gauff",
-      "player2": "Elina Svitolina",
-      "player1_odds": 1.71,
-      "player2_odds": 2.38,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.5819,
-      "p2_prob": 0.4181,
-      "overround": 1.005,
-      "commence_time": "2026-05-16T15:00:00Z",
-      "sport_key": "tennis_wta_italian_open"
     }
   ]
 }
