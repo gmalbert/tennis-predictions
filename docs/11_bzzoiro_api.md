@@ -588,7 +588,7 @@ with tab_elo:
     st.subheader("ATP Rankings (Live)")
     rank_df = load_atp_rankings(top=200)
     if not rank_df.empty:
-        st.dataframe(rank_df, hide_index=True, use_container_width=True)
+        st.dataframe(rank_df, hide_index=True, width='stretch')
 ```
 
 ### 6d. Replace Matchstat as the schedule source (drop-in replacement in `predictions.py`)
