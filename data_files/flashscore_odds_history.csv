@@ -797,3 +797,43 @@ date_fetched,fetched_at,event_id,ts_start,tourney,surface,p1,p2,wu,wv,bookmaker_
 2026-05-23,2026-05-23T06:02:03Z,fitdPFfn,1779539400,"ATP - SINGLES: Hamburg (Germany), clay",clay,Buse I.,Paul T.,buse-ignacio,paul-tommy,549,bet365.us,2.3,1.62,2.0,1.8
 2026-05-23,2026-05-23T06:02:03Z,0bzYOcUh,1779537600,"WTA - SINGLES: Rabat (Morocco), clay",clay,Kalinina A.,Marcinko P.,kalinina-anhelina,petra-marcinko,549,bet365.us,1.36,3.2,1.44,2.75
 2026-05-23,2026-05-23T06:02:03Z,ryuKEPtR,1779537600,"WTA - SINGLES: Strasbourg (France), clay",clay,Mboko V.,Navarro E.,mboko-victoria,navarro-emma,549,bet365.us,1.53,2.5,1.5,2.63
+2026-05-24,2026-05-24T06:16:03Z,Gnd6Yt4s,1779613200,"ATP - SINGLES: French Open (France), clay",clay,Davidovich Fokina A.,Dzumhur D.,davidovich-fokina-alejandro,dzumhur-damir,549,bet365.us,1.13,6.0,1.22,4.33
+2026-05-24,2026-05-24T06:16:03Z,EFZKTCJ5,1779613200,"ATP - SINGLES: French Open (France), clay",clay,Duckworth J.,Diallo G.,duckworth-james,diallo-gabriel,549,bet365.us,2.5,1.53,3.2,1.36
+2026-05-24,2026-05-24T06:16:03Z,hAIlGalD,1779613200,"ATP - SINGLES: French Open (France), clay",clay,Kecmanovic M.,Marozsan F.,kecmanovic-miomir,marozsan-fabian,549,bet365.us,1.62,2.3,1.73,2.1
+2026-05-24,2026-05-24T06:16:03Z,b3P7ZsjR,1779613200,"ATP - SINGLES: French Open (France), clay",clay,Khachanov K.,Gea A.,khachanov-karen,gea-arthur,549,bet365.us,1.22,4.33,1.25,4.0
+2026-05-24,2026-05-24T06:16:03Z,IH10nRvo,1779613200,"ATP - SINGLES: French Open (France), clay",clay,Llamas Ruiz P.,Tirante T. A.,llamas-ruiz-pablo,tirante-thiago-agustin,549,bet365.us,2.1,1.73,1.91,1.91
+2026-05-24,2026-05-24T06:16:03Z,nZAUimHN,1779618600,"ATP - SINGLES: French Open (France), clay",clay,Jacquet K.,Trungelliti M.,jacquet-kyrian,trungelliti-marco,549,bet365.us,1.67,2.2,2.0,1.8
+2026-05-24,2026-05-24T06:16:03Z,h4NbHrUr,1779620400,"ATP - SINGLES: French Open (France), clay",clay,Etcheverry T. M.,Borges N.,etcheverry-tomas-martin,borges-nuno,549,bet365.us,1.44,2.75,1.62,2.3
+2026-05-24,2026-05-24T06:16:03Z,EHb9uGHO,1779620400,"ATP - SINGLES: French Open (France), clay",clay,Machac T.,Bergs Z.,machac-tomas,bergs-zizou,549,bet365.us,1.57,2.38,1.73,2.1
+2026-05-24,2026-05-24T06:16:03Z,dC0NtKEi,1779622200,"ATP - SINGLES: French Open (France), clay",clay,Bonzi B.,Zverev A.,bonzi-benjamin,zverev-alexander,549,bet365.us,15.0,1.03,10.0,1.06
+2026-05-24,2026-05-24T06:16:03Z,bqZDD0T7,1779624000,"ATP - SINGLES: French Open (France), clay",clay,Droguet T.,Mensik J.,droguet-titouan,mensik-jakub,549,bet365.us,3.0,1.4,3.2,1.36
+2026-05-24,2026-05-24T06:16:03Z,QHL6FMbe,1779624000,"ATP - SINGLES: French Open (France), clay",clay,Halys Q.,Bellucci M.,halys-quentin,bellucci-mattia,549,bet365.us,1.73,2.1,1.73,2.1
+2026-05-24,2026-05-24T06:16:03Z,WbbA4Q0T,1779624000,"ATP - SINGLES: French Open (France), clay",clay,Zheng M.,Prizmic D.,zheng-michael,prizmic-dino,549,bet365.us,5.0,1.17,4.5,1.2
+2026-05-24,2026-05-24T06:16:03Z,YRWRM7Gc,1779625800,"ATP - SINGLES: French Open (France), clay",clay,Cina F.,Opelka R.,cina-federico,opelka-reilly,549,bet365.us,1.5,2.63,1.57,2.38
+2026-05-24,2026-05-24T06:16:03Z,KGAzv3tK,1779625800,"ATP - SINGLES: French Open (France), clay",clay,Fritz T.,Basavareddy N.,fritz-taylor,basavareddy-nishesh,549,bet365.us,1.25,4.0,1.25,4.0
+2026-05-24,2026-05-24T06:16:03Z,E5YsJPFM,1779631200,"ATP - SINGLES: French Open (France), clay",clay,Blockx A.,Wong C.,blockx-alexander,wong-chak-lam-coleman,549,bet365.us,1.14,5.5,1.14,5.5
+2026-05-24,2026-05-24T06:16:03Z,6e9EeVHb,1779631200,"ATP - SINGLES: French Open (France), clay",clay,Dellien H.,Royer V.,dellien-hugo,royer-valentin,549,bet365.us,1.73,2.1,1.8,2.0
+2026-05-24,2026-05-24T06:16:03Z,IHLcwl2U,1779631200,"ATP - SINGLES: French Open (France), clay",clay,Fonseca J.,Pavlovic L.,fonseca-joao,pavlovic-luka,549,bet365.us,1.05,11.0,1.06,10.0
+2026-05-24,2026-05-24T06:16:03Z,t2yDVYlg,1779631200,"ATP - SINGLES: French Open (France), clay",clay,Medjedovic H.,Hanfmann Y.,medjedovic-hamad,hanfmann-yannick,549,bet365.us,1.5,2.63,1.57,2.38
+2026-05-24,2026-05-24T06:16:03Z,2REssW25,1779631200,"ATP - SINGLES: French Open (France), clay",clay,Sonego L.,Herbert P.,sonego-lorenzo,herbert-pierre-hugues,549,bet365.us,1.44,2.75,1.4,3.0
+2026-05-24,2026-05-24T06:16:03Z,0WXSRjlI,1779646500,"ATP - SINGLES: French Open (France), clay",clay,Mpetshi Perricard G.,Djokovic N.,mpetshi-perricard-giovanni,djokovic-novak,549,bet365.us,6.0,1.13,5.5,1.14
+2026-05-24,2026-05-24T06:16:03Z,tWIRVNGP,1779613200,"WTA - SINGLES: French Open (France), clay",clay,Bronzetti L.,Bouzkova M.,bronzetti-lucia,bouzkova-marie,549,bet365.us,4.33,1.22,3.75,1.29
+2026-05-24,2026-05-24T06:16:03Z,pbrbPrAT,1779613200,"WTA - SINGLES: French Open (France), clay",clay,Kostyuk M.,Selekhmeteva O.,kostyuk-marta,selekhmeteva-oksana,549,bet365.us,1.06,10.0,1.11,6.5
+2026-05-24,2026-05-24T06:16:03Z,zXpJC5QN,1779613200,"WTA - SINGLES: French Open (France), clay",clay,Tagger L.,Wang Xin.,tagger-lilli,wang-xinyu-2001,549,bet365.us,1.62,2.3,1.57,2.38
+2026-05-24,2026-05-24T06:16:03Z,xMlPoxM7,1779613200,"WTA - SINGLES: French Open (France), clay",clay,Tomljanovic A.,McNally C.,tomljanovic-ajla,mcnally-caty,549,bet365.us,3.5,1.3,3.0,1.4
+2026-05-24,2026-05-24T06:16:03Z,CdvrOBcJ,1779616800,"WTA - SINGLES: French Open (France), clay",clay,Kraus S.,Bencic B.,kraus-sinja,bencic-belinda,549,bet365.us,4.0,1.25,4.0,1.25
+2026-05-24,2026-05-24T06:16:03Z,QsVO9r9j,1779618600,"WTA - SINGLES: French Open (France), clay",clay,Blinkova A.,Starodubtseva Y.,blinkova-anna,starodubtsewa-yulia,549,bet365.us,3.75,1.29,3.2,1.36
+2026-05-24,2026-05-24T06:16:03Z,GE84MLhd,1779618600,"WTA - SINGLES: French Open (France), clay",clay,Valentova T.,Linette M.,valentova-tereza,linette-magda,549,bet365.us,1.29,3.75,1.36,3.2
+2026-05-24,2026-05-24T06:16:03Z,tUTTJMXj,1779618600,"WTA - SINGLES: French Open (France), clay",clay,Volynets K.,Burel C.,volynets-katie,burel-clara,549,bet365.us,1.2,4.5,1.22,4.33
+2026-05-24,2026-05-24T06:16:03Z,2JnBEReB,1779620400,"WTA - SINGLES: French Open (France), clay",clay,Baptiste H.,Krejcikova B.,baptiste-hailey,krejcikova-barbora,549,bet365.us,1.73,2.1,2.2,1.67
+2026-05-24,2026-05-24T06:16:03Z,hjQjR4uH,1779620400,"WTA - SINGLES: French Open (France), clay",clay,Jones F.,Haddad Maia B.,jones-francesca,haddad-maia-beatriz,549,bet365.us,1.62,2.3,1.62,2.3
+2026-05-24,2026-05-24T06:16:03Z,QLZJTFTs,1779620400,"WTA - SINGLES: French Open (France), clay",clay,Kovinic D.,Wang Xiy.,kovinic-danka,wang-xiyu,549,bet365.us,13.0,1.04,10.0,1.06
+2026-05-24,2026-05-24T06:16:03Z,UeoHmbie,1779625800,"WTA - SINGLES: French Open (France), clay",clay,Kenin S.,Stearns P.,kenin-sofia,stearns-peyton,549,bet365.us,2.75,1.44,2.5,1.53
+2026-05-24,2026-05-24T06:16:03Z,pt1N3Asg,1779625800,"WTA - SINGLES: French Open (France), clay",clay,Sorribes Tormo S.,Korpatsch T.,sorribes-tormo-sara,korpatsch-tamara,549,bet365.us,2.1,1.73,1.91,1.91
+2026-05-24,2026-05-24T06:16:03Z,rHQ2P3RQ,1779627600,"WTA - SINGLES: French Open (France), clay",clay,Frech M.,Ruse G.,frech-magdalena,ruse-elena-gabriela,549,bet365.us,2.3,1.62,2.5,1.53
+2026-05-24,2026-05-24T06:16:03Z,nkBqZbx2,1779627600,"WTA - SINGLES: French Open (France), clay",clay,Raducanu E.,Sierra S.,raducanu-emma,sierra-solana,549,bet365.us,2.38,1.57,2.2,1.67
+2026-05-24,2026-05-24T06:16:03Z,p6Wl7qlo,1779629400,"WTA - SINGLES: French Open (France), clay",clay,Andreeva M.,Ferro F.,andreeva-mirra,ferro-fiona,549,bet365.us,1.04,13.0,1.04,13.0
+2026-05-24,2026-05-24T06:16:03Z,UkU6Zp03,1779633000,"WTA - SINGLES: French Open (France), clay",clay,Bassols M.,Arango E.,bassols-ribera-marina,arango-emiliana,549,bet365.us,2.0,1.8,1.91,1.91
+2026-05-24,2026-05-24T06:16:03Z,QJOKKc8O,1779633000,"WTA - SINGLES: French Open (France), clay",clay,Bejlek S.,Stephens S.,bejlek-sara,stephens-sloane,549,bet365.us,1.57,2.38,1.62,2.3
+2026-05-24,2026-05-24T06:16:03Z,G0PNu4fA,1779633000,"WTA - SINGLES: French Open (France), clay",clay,Efremova K.,Cirstea S.,efremova-ksenia,cirstea-sorana,549,bet365.us,15.0,1.03,13.0,1.04
+2026-05-24,2026-05-24T06:16:03Z,Yo3riXcm,1779633000,"WTA - SINGLES: French Open (France), clay",clay,Tauson C.,Snigur D.,tauson-clara,snigur-daria,549,bet365.us,1.57,2.38,1.44,2.75
