@@ -1,5 +1,150 @@
 {
-  "date_fetched": "2026-05-31",
-  "fetched_at": "2026-05-31T06:28:41Z",
-  "matches": []
+  "date_fetched": "2026-06-01",
+  "fetched_at": "2026-06-01T06:35:27Z",
+  "matches": [
+    {
+      "player1": "Flavio Cobolli",
+      "player2": "Zachary Svajda",
+      "player1_odds": 1.15,
+      "player2_odds": 7.2,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.8623,
+      "p2_prob": 0.1377,
+      "overround": 1.0085,
+      "commence_time": "2026-06-01T09:00:00Z",
+      "sport_key": "tennis_atp_french_open"
+    },
+    {
+      "player1": "Juan Manuel Cerundolo",
+      "player2": "Matteo Berrettini",
+      "player1_odds": 2.44,
+      "player2_odds": 1.68,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.4078,
+      "p2_prob": 0.5922,
+      "overround": 1.0051,
+      "commence_time": "2026-06-01T11:20:00Z",
+      "sport_key": "tennis_atp_french_open"
+    },
+    {
+      "player1": "Felix Auger-Aliassime",
+      "player2": "Alejandro Tabilo",
+      "player1_odds": 1.58,
+      "player2_odds": 2.7,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.6308,
+      "p2_prob": 0.3692,
+      "overround": 1.0033,
+      "commence_time": "2026-06-01T13:00:00Z",
+      "sport_key": "tennis_atp_french_open"
+    },
+    {
+      "player1": "Frances Tiafoe",
+      "player2": "Matteo Arnaldi",
+      "player1_odds": 2.06,
+      "player2_odds": 1.94,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.485,
+      "p2_prob": 0.515,
+      "overround": 1.0009,
+      "commence_time": "2026-06-01T15:00:00Z",
+      "sport_key": "tennis_atp_french_open"
+    },
+    {
+      "player1": "Rafael Jodar",
+      "player2": "Alexander Zverev",
+      "player1_odds": 3.75,
+      "player2_odds": 1.35,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.2647,
+      "p2_prob": 0.7353,
+      "overround": 1.0074,
+      "commence_time": "2026-06-02T07:00:00Z",
+      "sport_key": "tennis_atp_french_open"
+    },
+    {
+      "player1": "Jakub Mensik",
+      "player2": "Joao Fonseca",
+      "player1_odds": 2.92,
+      "player2_odds": 1.5,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.3394,
+      "p2_prob": 0.6606,
+      "overround": 1.0091,
+      "commence_time": "2026-06-02T09:00:00Z",
+      "sport_key": "tennis_atp_french_open"
+    },
+    {
+      "player1": "Anastasia Potapova",
+      "player2": "Anna Kalinskaya",
+      "player1_odds": 1.5,
+      "player2_odds": 2.96,
+      "bookmaker": "Matchbook",
+      "p1_prob": 0.6637,
+      "p2_prob": 0.3363,
+      "overround": 1.0045,
+      "commence_time": "2026-06-01T09:00:00Z",
+      "sport_key": "tennis_wta_french_open"
+    },
+    {
+      "player1": "Madison Keys",
+      "player2": "Diana Shnaider",
+      "player1_odds": 1.71,
+      "player2_odds": 2.38,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.5819,
+      "p2_prob": 0.4181,
+      "overround": 1.005,
+      "commence_time": "2026-06-01T10:10:00Z",
+      "sport_key": "tennis_wta_french_open"
+    },
+    {
+      "player1": "Maja Chwalinska",
+      "player2": "Diane Parry",
+      "player1_odds": 1.58,
+      "player2_odds": 2.72,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.6326,
+      "p2_prob": 0.3674,
+      "overround": 1.0006,
+      "commence_time": "2026-06-01T10:40:00Z",
+      "sport_key": "tennis_wta_french_open"
+    },
+    {
+      "player1": "Aryna Sabalenka",
+      "player2": "Naomi Osaka",
+      "player1_odds": 1.24,
+      "player2_odds": 5.1,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.8044,
+      "p2_prob": 0.1956,
+      "overround": 1.0025,
+      "commence_time": "2026-06-01T18:15:00Z",
+      "sport_key": "tennis_wta_french_open"
+    },
+    {
+      "player1": "Elina Svitolina",
+      "player2": "Marta Kostyuk",
+      "player1_odds": 2.2,
+      "player2_odds": 1.81,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.4514,
+      "p2_prob": 0.5486,
+      "overround": 1.007,
+      "commence_time": "2026-06-02T09:00:00Z",
+      "sport_key": "tennis_wta_french_open"
+    },
+    {
+      "player1": "Mirra Andreeva",
+      "player2": "Sorana Cirstea",
+      "player1_odds": 1.61,
+      "player2_odds": 2.58,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.6158,
+      "p2_prob": 0.3842,
+      "overround": 1.0087,
+      "commence_time": "2026-06-02T09:00:00Z",
+      "sport_key": "tennis_wta_french_open"
+    }
+  ]
 }
