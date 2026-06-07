@@ -1,6 +1,6 @@
 {
-  "date_fetched": "2026-06-06",
-  "fetched_at": "2026-06-06T06:11:16Z",
+  "date_fetched": "2026-06-07",
+  "fetched_at": "2026-06-07T06:29:17Z",
   "matches": [
     {
       "player1": "Flavio Cobolli",
@@ -13,18 +13,6 @@
       "overround": 1.0096,
       "commence_time": "2026-06-07T13:00:00Z",
       "sport_key": "tennis_atp_french_open"
-    },
-    {
-      "player1": "Maja Chwalinska",
-      "player2": "Mirra Andreeva",
-      "player1_odds": 4.5,
-      "player2_odds": 1.28,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.2215,
-      "p2_prob": 0.7785,
-      "overround": 1.0035,
-      "commence_time": "2026-06-06T13:00:00Z",
-      "sport_key": "tennis_wta_french_open"
     }
   ]
 }
