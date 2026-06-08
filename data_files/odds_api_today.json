@@ -1,18 +1,5 @@
 {
-  "date_fetched": "2026-06-07",
-  "fetched_at": "2026-06-07T06:29:17Z",
-  "matches": [
-    {
-      "player1": "Flavio Cobolli",
-      "player2": "Alexander Zverev",
-      "player1_odds": 4.5,
-      "player2_odds": 1.27,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.2201,
-      "p2_prob": 0.7799,
-      "overround": 1.0096,
-      "commence_time": "2026-06-07T13:00:00Z",
-      "sport_key": "tennis_atp_french_open"
-    }
-  ]
+  "date_fetched": "2026-06-08",
+  "fetched_at": "2026-06-08T06:31:34Z",
+  "matches": []
 }
