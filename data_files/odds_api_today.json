@@ -1,41 +1,29 @@
 {
-  "date_fetched": "2026-07-10",
-  "fetched_at": "2026-07-10T06:18:15Z",
+  "date_fetched": "2026-07-11",
+  "fetched_at": "2026-07-11T05:51:25Z",
   "matches": [
     {
-      "player1": "Arthur Fery",
-      "player2": "Alexander Zverev",
-      "player1_odds": 7.0,
-      "player2_odds": 1.16,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.1422,
-      "p2_prob": 0.8578,
-      "overround": 1.0049,
-      "commence_time": "2026-07-10T12:30:00Z",
-      "sport_key": "tennis_atp_wimbledon"
-    },
-    {
       "player1": "Jannik Sinner",
-      "player2": "Novak Djokovic",
-      "player1_odds": 1.25,
-      "player2_odds": 4.9,
-      "bookmaker": "Matchbook",
-      "p1_prob": 0.7967,
-      "p2_prob": 0.2033,
-      "overround": 1.0041,
-      "commence_time": "2026-07-10T14:10:00Z",
+      "player2": "Alexander Zverev",
+      "player1_odds": 1.24,
+      "player2_odds": 5.0,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.8013,
+      "p2_prob": 0.1987,
+      "overround": 1.0065,
+      "commence_time": "2026-07-12T09:00:00Z",
       "sport_key": "tennis_atp_wimbledon"
     },
     {
       "player1": "Karolina Muchova",
       "player2": "Linda Noskova",
-      "player1_odds": 1.93,
-      "player2_odds": 2.04,
+      "player1_odds": 1.83,
+      "player2_odds": 2.18,
       "bookmaker": "Betfair",
-      "p1_prob": 0.5139,
-      "p2_prob": 0.4861,
-      "overround": 1.0083,
-      "commence_time": "2026-07-11T09:00:00Z",
+      "p1_prob": 0.5436,
+      "p2_prob": 0.4564,
+      "overround": 1.0052,
+      "commence_time": "2026-07-11T14:00:00Z",
       "sport_key": "tennis_wta_wimbledon"
     }
   ]
