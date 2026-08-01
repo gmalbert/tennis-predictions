@@ -2217,3 +2217,44 @@ date_fetched,fetched_at,event_id,ts_start,tourney,surface,p1,p2,wu,wv,bookmaker_
 2026-07-31,2026-07-31T06:01:02Z,QmdQ816E,1785526245,"WTA - SINGLES: Washington (USA), hard",hard,Shnaider D.,Samsonova L.,shnaider-diana,samsonova-liudmila,1221,Kalshi,1.82,2.13,1.92,1.89
 2026-07-31,2026-07-31T06:01:02Z,r1dUbKwq,1785537000,"WTA - SINGLES: Washington (USA), hard",hard,Eala A.,Svitolina E.,eala-alexandra,monfils-elina,1267,Polymarket.usa,1.69,1.67,100.0,1.01
 2026-07-31,2026-07-31T06:01:02Z,r1dUbKwq,1785537000,"WTA - SINGLES: Washington (USA), hard",hard,Eala A.,Svitolina E.,eala-alexandra,monfils-elina,1221,Kalshi,2.5,1.61,2.44,1.54
+2026-08-01,2026-08-01T05:59:01Z,80RxjFb4,1785560400,"ATP - SINGLES: Los Cabos (Mexico), hard",hard,Norrie C.,Shapovalov D.,norrie-cameron,shapovalov-denis,1221,Kalshi,1.64,2.44,1.92,2.04
+2026-08-01,2026-08-01T05:59:01Z,j9nbc5z8,1785623400,"ATP - SINGLES: Washington (USA), hard",hard,Nakashima B.,Fritz T.,nakashima-brandon,fritz-taylor,1221,Kalshi,2.7,1.56,2.56,1.61
+2026-08-01,2026-08-01T05:59:01Z,Y5D0ACVg,1785607200,"WTA - SINGLES: Memphis (USA), hard",hard,Liutova K.,Kalieva E.,liutova-kristina,kalieva-elvina,1267,Polymarket.usa,1.67,1.64,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,Y5D0ACVg,1785607200,"WTA - SINGLES: Memphis (USA), hard",hard,Liutova K.,Kalieva E.,liutova-kristina,kalieva-elvina,1221,Kalshi,1.61,2.5,1.64,2.5
+2026-08-01,2026-08-01T05:59:01Z,8OiriqWO,1785614400,"WTA - SINGLES: Memphis (USA), hard",hard,Vidmanova D.,Zarazua R.,vidmanova-darja,zarazua-renata,1221,Kalshi,1.79,2.17,1.47,1.39
+2026-08-01,2026-08-01T05:59:01Z,8OiriqWO,1785614400,"WTA - SINGLES: Memphis (USA), hard",hard,Vidmanova D.,Zarazua R.,vidmanova-darja,zarazua-renata,1267,Polymarket.usa,1.92,1.89,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,GxVkQoiS,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Arango E.,Boisson L.,arango-emiliana,boisson-lois,1221,Kalshi,1.82,1.82,1.27,1.85
+2026-08-01,2026-08-01T05:59:01Z,GxVkQoiS,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Arango E.,Boisson L.,arango-emiliana,boisson-lois,1267,Polymarket.usa,2.33,1.41,3.33,1.04
+2026-08-01,2026-08-01T05:59:01Z,8CRsS7MF,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Blinkova A.,Kalieva E.,blinkova-anna,kalieva-elvina,1221,Kalshi,1.61,1.85,1.61,1.89
+2026-08-01,2026-08-01T05:59:01Z,8CRsS7MF,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Blinkova A.,Kalieva E.,blinkova-anna,kalieva-elvina,1267,Polymarket.usa,1.92,1.89,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,zJFhZOTr,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Jeanjean L.,Zhu L.,jeanjean-leolia,zhu-lin,1267,Polymarket.usa,2.38,1.69,4.17,1.03
+2026-08-01,2026-08-01T05:59:01Z,zJFhZOTr,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Jeanjean L.,Zhu L.,jeanjean-leolia,zhu-lin,1221,Kalshi,2.7,1.54,2.94,1.28
+2026-08-01,2026-08-01T05:59:01Z,UJ72iOkR,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Jimenez Kasintseva V.,Bassols M.,jimenez-kasintseva-victoria,bassols-ribera-marina,1267,Polymarket.usa,3.85,1.33,20.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,UJ72iOkR,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Jimenez Kasintseva V.,Bassols M.,jimenez-kasintseva-victoria,bassols-ribera-marina,1221,Kalshi,2.13,1.39,1.12,1.14
+2026-08-01,2026-08-01T05:59:01Z,rqJ0X2be,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Joint M.,Grubor A.,joint-maya,grubor-ana,1221,Kalshi,1.12,7.14,1.12,5.26
+2026-08-01,2026-08-01T05:59:01Z,rqJ0X2be,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Joint M.,Grubor A.,joint-maya,grubor-ana,1267,Polymarket.usa,3.45,1.06,12.5,1.03
+2026-08-01,2026-08-01T05:59:01Z,GdH8VtT7,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Kenin S.,Stefanini L.,kenin-sofia,stefanini-lucrezia,1267,Polymarket.usa,2.86,1.43,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,GdH8VtT7,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Kenin S.,Stefanini L.,kenin-sofia,stefanini-lucrezia,1221,Kalshi,1.59,1.89,1.33,2.04
+2026-08-01,2026-08-01T05:59:01Z,U1tl6Qad,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Korneeva A.,Stoiana M.,korneeva-alina,stoiana-mary,1267,Polymarket.usa,1.96,1.49,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,U1tl6Qad,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Korneeva A.,Stoiana M.,korneeva-alina,stoiana-mary,1221,Kalshi,1.59,2.27,1.32,2.13
+2026-08-01,2026-08-01T05:59:01Z,jgnAD87M,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Kudermetova P.,Alexander A.,kudermetova-polina,alexander-avery,1267,Polymarket.usa,2.94,1.09,12.5,1.04
+2026-08-01,2026-08-01T05:59:01Z,MeTZTTi3,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Maria T.,Marton I.,maria-tatjana,marton-isabella,1221,Kalshi,1.14,7.69,1.14,7.69
+2026-08-01,2026-08-01T05:59:01Z,MeTZTTi3,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Maria T.,Marton I.,maria-tatjana,marton-isabella,1267,Polymarket.usa,2.7,1.12,25.0,1.04
+2026-08-01,2026-08-01T05:59:01Z,Mg4fgpLE,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Preston T.,Jones E.,preston-taylah,jones-emerson,1267,Polymarket.usa,4.17,1.16,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,Mg4fgpLE,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Preston T.,Jones E.,preston-taylah,jones-emerson,1221,Kalshi,1.67,1.67,1.27,2.17
+2026-08-01,2026-08-01T05:59:01Z,Mywt8nVq,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Sawangkaew M.,Sramkova R.,sawangkaew-mananchaya,sramkova-rebecca,1267,Polymarket.usa,2.0,1.47,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,Mywt8nVq,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Sawangkaew M.,Sramkova R.,sawangkaew-mananchaya,sramkova-rebecca,1221,Kalshi,1.56,2.08,1.27,2.33
+2026-08-01,2026-08-01T05:59:01Z,Iul2FUxA,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Selekhmeteva O.,Ito A.,selekhmeteva-oksana,ito-aoi,1267,Polymarket.usa,1.61,1.56,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,Iul2FUxA,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Selekhmeteva O.,Ito A.,selekhmeteva-oksana,ito-aoi,1221,Kalshi,1.45,2.22,1.41,1.89
+2026-08-01,2026-08-01T05:59:01Z,C8GLKPEk,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Tararudee L.,Zheng Q.,tararudee-lanlana,zheng-qinwen,1267,Polymarket.usa,2.78,1.37,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,C8GLKPEk,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Tararudee L.,Zheng Q.,tararudee-lanlana,zheng-qinwen,1221,Kalshi,2.86,1.52,2.38,1.39
+2026-08-01,2026-08-01T05:59:01Z,4zPMvo6L,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Uchijima M.,Sakatsume H.,uchijima-moyuka,sakatsume-himeno,1267,Polymarket.usa,2.7,1.43,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,4zPMvo6L,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Uchijima M.,Sakatsume H.,uchijima-moyuka,sakatsume-himeno,1221,Kalshi,1.56,2.0,1.45,1.49
+2026-08-01,2026-08-01T05:59:01Z,KYJTI3q2,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Vidmanova D.,Day K.,vidmanova-darja,day-kayla,1267,Polymarket.usa,1.89,1.85,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,KYJTI3q2,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Vidmanova D.,Day K.,vidmanova-darja,day-kayla,1221,Kalshi,1.72,1.67,1.39,1.85
+2026-08-01,2026-08-01T05:59:01Z,WMQEt7y9,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Volynets K.,Stephens S.,volynets-katie,stephens-sloane,1267,Polymarket.usa,5.0,1.16,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,WMQEt7y9,1785592800,"WTA - SINGLES: Toronto (Canada) - Qualification, hard",hard,Volynets K.,Stephens S.,volynets-katie,stephens-sloane,1221,Kalshi,1.61,1.33,1.49,1.41
+2026-08-01,2026-08-01T05:59:01Z,hItbhJhB,1785607200,"WTA - SINGLES: Washington (USA), hard",hard,Pegula J.,Shnaider D.,pegula-jessica,shnaider-diana,1267,Polymarket.usa,2.63,1.18,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,hItbhJhB,1785607200,"WTA - SINGLES: Washington (USA), hard",hard,Pegula J.,Shnaider D.,pegula-jessica,shnaider-diana,1221,Kalshi,1.27,4.55,1.25,2.0
+2026-08-01,2026-08-01T05:59:01Z,QHs72IY8,1785612600,"WTA - SINGLES: Washington (USA), hard",hard,Osaka N.,Eala A.,osaka-naomi,eala-alexandra,1267,Polymarket.usa,1.61,1.59,100.0,1.01
+2026-08-01,2026-08-01T05:59:01Z,QHs72IY8,1785612600,"WTA - SINGLES: Washington (USA), hard",hard,Osaka N.,Eala A.,osaka-naomi,eala-alexandra,1221,Kalshi,1.52,2.78,1.82,1.82
