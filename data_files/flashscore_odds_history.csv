@@ -2297,3 +2297,66 @@ date_fetched,fetched_at,event_id,ts_start,tourney,surface,p1,p2,wu,wv,bookmaker_
 2026-08-02,2026-08-02T05:59:31Z,MDAfbW2B,1785709800,"WTA - SINGLES: Toronto (Canada), hard",hard,Ruse G.,Stearns P.,ruse-elena-gabriela,stearns-peyton,1221,Kalshi,2.17,1.82,2.13,1.92
 2026-08-02,2026-08-02T05:59:31Z,KKxml2cn,1785686400,"WTA - SINGLES: Washington (USA), hard",hard,Pegula J.,Eala A.,pegula-jessica,eala-alexandra,1221,Kalshi,1.64,2.38,1.67,2.38
 2026-08-02,2026-08-02T05:59:31Z,KKxml2cn,1785686400,"WTA - SINGLES: Washington (USA), hard",hard,Pegula J.,Eala A.,pegula-jessica,eala-alexandra,1267,Polymarket.usa,1.69,1.67,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,6PdGTm6s,1785769200,"ATP - SINGLES: Montreal (Canada), hard",hard,Berrettini M.,Navone M.,berrettini-matteo,navone-mariano,1221,Kalshi,1.54,2.7,1.32,1.69
+2026-08-03,2026-08-03T06:02:27Z,dC66M7wf,1785769200,"ATP - SINGLES: Montreal (Canada), hard",hard,Duckworth J.,O'Connell C.,duckworth-james,o-connell-christopher,1221,Kalshi,2.33,1.69,1.69,1.27
+2026-08-03,2026-08-03T06:02:27Z,hKXzg4Zh,1785769200,"ATP - SINGLES: Montreal (Canada), hard",hard,Galarneau A.,Kopriva V.,galarneau-alexis,kopriva-vit,1221,Kalshi,1.89,2.04,1.85,1.75
+2026-08-03,2026-08-03T06:02:27Z,no9R9Ugl,1785769200,"ATP - SINGLES: Montreal (Canada), hard",hard,Mejia N.,Landaluce M.,mejia-nicolas,landaluce-martin,1221,Kalshi,3.13,1.43,3.33,1.27
+2026-08-03,2026-08-03T06:02:27Z,8Ehh8HIq,1785769200,"ATP - SINGLES: Montreal (Canada), hard",hard,van Assche L.,Droguet T.,van-assche-luca,droguet-titouan,1221,Kalshi,1.92,2.04,1.59,1.27
+2026-08-03,2026-08-03T06:02:27Z,WYbEFaQ9,1785774600,"ATP - SINGLES: Montreal (Canada), hard",hard,Bonzi B.,Hanfmann Y.,bonzi-benjamin,hanfmann-yannick,1221,Kalshi,2.13,1.82,2.13,1.54
+2026-08-03,2026-08-03T06:02:27Z,tSAs6ngD,1785774600,"ATP - SINGLES: Montreal (Canada), hard",hard,Shimabukuro S.,Cilic M.,shimabukuro-sho,cilic-marin,1221,Kalshi,2.27,1.75,2.13,1.54
+2026-08-03,2026-08-03T06:02:27Z,YLcTTkoK,1785774600,"ATP - SINGLES: Montreal (Canada), hard",hard,Vukic A.,Altmaier D.,vukic-aleksandar,altmaier-daniel,1221,Kalshi,1.64,2.44,1.41,1.43
+2026-08-03,2026-08-03T06:02:27Z,tSj06emd,1785776400,"ATP - SINGLES: Montreal (Canada), hard",hard,Diallo G.,Jacquet K.,diallo-gabriel,jacquet-kyrian,1221,Kalshi,1.85,2.13,2.44,1.49
+2026-08-03,2026-08-03T06:02:27Z,UqJbB6jD,1785777300,"ATP - SINGLES: Montreal (Canada), hard",hard,Fucsovics M.,Moutet C.,fucsovics-marton,moutet-corentin,1221,Kalshi,2.0,1.96,2.0,1.79
+2026-08-03,2026-08-03T06:02:27Z,GbnfSxAF,1785780000,"ATP - SINGLES: Montreal (Canada), hard",hard,Fearnley J.,Mannarino A.,fearnley-jacob,mannarino-adrian,1221,Kalshi,1.61,2.56,1.67,2.56
+2026-08-03,2026-08-03T06:02:27Z,pAS4MWbE,1785780000,"ATP - SINGLES: Montreal (Canada), hard",hard,Michelsen A.,Struff J-L.,michelsen-alex,struff-jan-lennard,1221,Kalshi,1.37,3.45,1.43,2.94
+2026-08-03,2026-08-03T06:02:27Z,n3bWP556,1785780000,"ATP - SINGLES: Montreal (Canada), hard",hard,Ugo Carabelli C.,Norrie C.,ugo-carabelli-camilo,norrie-cameron,1221,Kalshi,4.35,1.27,1.79,1.79
+2026-08-03,2026-08-03T06:02:27Z,GxudtRkm,1785781800,"ATP - SINGLES: Montreal (Canada), hard",hard,Atmane T.,Draper J.,atmane-terence,draper-jack,1221,Kalshi,3.03,1.47,2.17,1.39
+2026-08-03,2026-08-03T06:02:27Z,WE8KgI3j,1785782700,"ATP - SINGLES: Montreal (Canada), hard",hard,Hurkacz H.,Giron M.,hurkacz-hubert,giron-marcos,1221,Kalshi,1.59,2.7,1.56,2.63
+2026-08-03,2026-08-03T06:02:27Z,zs6pZ9rK,1785785400,"ATP - SINGLES: Montreal (Canada), hard",hard,Baez S.,Bellucci M.,baez-sebastian,bellucci-mattia,1221,Kalshi,1.89,2.04,2.04,1.89
+2026-08-03,2026-08-03T06:02:27Z,va2MDweM,1785785400,"ATP - SINGLES: Montreal (Canada), hard",hard,Walton A.,Brooksby J.,walton-adam,brooksby-jenson,1221,Kalshi,2.22,1.75,2.17,1.75
+2026-08-03,2026-08-03T06:02:27Z,O2r4v5Ka,1785788100,"ATP - SINGLES: Montreal (Canada), hard",hard,Mpetshi Perricard G.,Van De Zandschulp B.,mpetshi-perricard-giovanni,van-de-zandschulp-botic,1221,Kalshi,2.13,1.85,2.17,1.47
+2026-08-03,2026-08-03T06:02:27Z,dGtCxqkC,1785790800,"ATP - SINGLES: Montreal (Canada), hard",hard,Cerundolo J. M.,Medjedovic H.,cerundolo-juan-manuel,medjedovic-hamad,1221,Kalshi,2.5,1.64,1.25,2.08
+2026-08-03,2026-08-03T06:02:27Z,44laOT8s,1785790800,"ATP - SINGLES: Montreal (Canada), hard",hard,Mochizuki S.,Marozsan F.,mochizuki-shintaro,marozsan-fabian,1221,Kalshi,2.7,1.56,2.7,1.56
+2026-08-03,2026-08-03T06:02:27Z,K6ZSfQ4t,1785793500,"ATP - SINGLES: Montreal (Canada), hard",hard,Sonego L.,Griekspoor T.,sonego-lorenzo,griekspoor-tallon,1221,Kalshi,2.0,1.96,2.0,1.96
+2026-08-03,2026-08-03T06:02:27Z,UsfJzNJO,1785794400,"ATP - SINGLES: Montreal (Canada), hard",hard,Merida Aguilar D.,Draxl L.,daniel-merida-aguilar,draxl-liam,1221,Kalshi,1.69,2.33,1.23,1.59
+2026-08-03,2026-08-03T06:02:27Z,61M0PUfR,1785776400,"ATP - SINGLES: Washington (USA), hard",hard,Fritz T.,Jodar R.,fritz-taylor,jodar-rafael,1221,Kalshi,1.59,2.63,1.72,2.27
+2026-08-03,2026-08-03T06:02:27Z,OtaYjleo,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Kalinina A.,Bondar A.,kalinina-anhelina,bondar-anna,1267,Polymarket.usa,1.69,1.56,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,OtaYjleo,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Kalinina A.,Bondar A.,kalinina-anhelina,bondar-anna,1221,Kalshi,1.54,2.7,1.59,2.7
+2026-08-03,2026-08-03T06:02:27Z,4MVZq2yI,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Korneeva A.,Kudermetova P.,korneeva-alina,kudermetova-polina,1267,Polymarket.usa,50.0,1.02,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,4MVZq2yI,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Korneeva A.,Kudermetova P.,korneeva-alina,kudermetova-polina,1221,Kalshi,1.52,2.78,1.49,2.86
+2026-08-03,2026-08-03T06:02:27Z,viOr2ZKq,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Oliynykova O.,Pliskova Ka.,oliynykova-oleksandra,pliskova-karolina,1267,Polymarket.usa,5.56,1.19,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,viOr2ZKq,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Oliynykova O.,Pliskova Ka.,oliynykova-oleksandra,pliskova-karolina,1221,Kalshi,4.0,1.32,5.26,1.22
+2026-08-03,2026-08-03T06:02:27Z,SMo2V2MO,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Parry D.,Day K.,parry-diane,day-kayla,1267,Polymarket.usa,100.0,1.01,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,SMo2V2MO,1785769200,"WTA - SINGLES: Toronto (Canada), hard",hard,Parry D.,Day K.,parry-diane,day-kayla,1221,Kalshi,2.22,1.79,2.0,1.85
+2026-08-03,2026-08-03T06:02:27Z,YguYfIDG,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Boulter K.,Cross K.,boulter-katie,cross-kayla,1267,Polymarket.usa,100.0,1.01,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,YguYfIDG,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Boulter K.,Cross K.,boulter-katie,cross-kayla,1221,Kalshi,1.33,3.7,1.25,4.35
+2026-08-03,2026-08-03T06:02:27Z,rmHcBwbc,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Gibson T.,Cocciaretto E.,gibson-talia,cocciaretto-elisabetta,1267,Polymarket.usa,14.29,1.08,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,rmHcBwbc,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Gibson T.,Cocciaretto E.,gibson-talia,cocciaretto-elisabetta,1221,Kalshi,2.44,1.67,2.22,1.67
+2026-08-03,2026-08-03T06:02:27Z,jDK59HS9,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Kessler M.,Brace C.,kessler-mccartney,brace-cadence,1267,Polymarket.usa,100.0,1.01,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,jDK59HS9,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Kessler M.,Brace C.,kessler-mccartney,brace-cadence,1221,Kalshi,1.18,6.25,1.16,5.56
+2026-08-03,2026-08-03T06:02:27Z,MDAfbW2B,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Ruse G.,Stearns P.,ruse-elena-gabriela,stearns-peyton,1221,Kalshi,2.22,1.79,2.13,1.92
+2026-08-03,2026-08-03T06:02:27Z,0Sovy7hm,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Sramkova R.,Blinkova A.,sramkova-rebecca,blinkova-anna,1267,Polymarket.usa,2.0,1.96,2.5,1.39
+2026-08-03,2026-08-03T06:02:27Z,0Sovy7hm,1785774600,"WTA - SINGLES: Toronto (Canada), hard",hard,Sramkova R.,Blinkova A.,sramkova-rebecca,blinkova-anna,1221,Kalshi,2.33,1.72,1.49,1.09
+2026-08-03,2026-08-03T06:02:27Z,jgUBmz6j,1785780000,"WTA - SINGLES: Toronto (Canada), hard",hard,Bartunkova N.,Andreescu B.,bartunkova-nikola,andreescu-bianca,1267,Polymarket.usa,1.72,1.69,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,jgUBmz6j,1785780000,"WTA - SINGLES: Toronto (Canada), hard",hard,Bartunkova N.,Andreescu B.,bartunkova-nikola,andreescu-bianca,1221,Kalshi,1.69,2.44,1.59,2.44
+2026-08-03,2026-08-03T06:02:27Z,IoRBk67t,1785780000,"WTA - SINGLES: Toronto (Canada), hard",hard,Jones E.,Tararudee L.,jones-emerson,tararudee-lanlana,1221,Kalshi,2.94,1.49,2.17,1.09
+2026-08-03,2026-08-03T06:02:27Z,Em7n0hYb,1785780000,"WTA - SINGLES: Toronto (Canada), hard",hard,Putintseva Y.,Zhang S.,putintseva-yulia,zhang-shuai,1267,Polymarket.usa,1.69,1.49,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,Em7n0hYb,1785780000,"WTA - SINGLES: Toronto (Canada), hard",hard,Putintseva Y.,Zhang S.,putintseva-yulia,zhang-shuai,1221,Kalshi,1.52,2.86,1.52,2.63
+2026-08-03,2026-08-03T06:02:27Z,OrUJmpxg,1785783600,"WTA - SINGLES: Toronto (Canada), hard",hard,Starodubtseva Y.,Joint M.,starodubtsewa-yulia,joint-maya,1221,Kalshi,1.72,2.33,1.72,2.33
+2026-08-03,2026-08-03T06:02:27Z,OrUJmpxg,1785783600,"WTA - SINGLES: Toronto (Canada), hard",hard,Starodubtseva Y.,Joint M.,starodubtsewa-yulia,joint-maya,1267,Polymarket.usa,1.75,1.72,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,WQvI3ndl,1785783600,"WTA - SINGLES: Toronto (Canada), hard",hard,Zhao C.,Linette M.,zhao-carol,linette-magda,1221,Kalshi,9.09,1.11,6.67,1.14
+2026-08-03,2026-08-03T06:02:27Z,WQvI3ndl,1785783600,"WTA - SINGLES: Toronto (Canada), hard",hard,Zhao C.,Linette M.,zhao-carol,linette-magda,1267,Polymarket.usa,16.67,1.06,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,0QMb0NLb,1785785400,"WTA - SINGLES: Toronto (Canada), hard",hard,Jimenez Kasintseva V.,Parks A.,jimenez-kasintseva-victoria,parks-alycia,1267,Polymarket.usa,50.0,1.02,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,0QMb0NLb,1785785400,"WTA - SINGLES: Toronto (Canada), hard",hard,Jimenez Kasintseva V.,Parks A.,jimenez-kasintseva-victoria,parks-alycia,1221,Kalshi,2.38,1.69,2.38,1.72
+2026-08-03,2026-08-03T06:02:27Z,nyIpMfCF,1785785400,"WTA - SINGLES: Toronto (Canada), hard",hard,Tjen J.,Samsonova L.,tjen-janice,samsonova-liudmila,1221,Kalshi,2.56,1.59,2.44,1.56
+2026-08-03,2026-08-03T06:02:27Z,nyIpMfCF,1785785400,"WTA - SINGLES: Toronto (Canada), hard",hard,Tjen J.,Samsonova L.,tjen-janice,samsonova-liudmila,1267,Polymarket.usa,3.13,1.08,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,ddSRoO65,1785789000,"WTA - SINGLES: Toronto (Canada), hard",hard,Maria T.,McNally C.,maria-tatjana,mcnally-caty,1221,Kalshi,2.38,1.67,2.38,1.64
+2026-08-03,2026-08-03T06:02:27Z,ddSRoO65,1785789000,"WTA - SINGLES: Toronto (Canada), hard",hard,Maria T.,McNally C.,maria-tatjana,mcnally-caty,1267,Polymarket.usa,100.0,1.01,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,KAwtgdrT,1785790800,"WTA - SINGLES: Toronto (Canada), hard",hard,Udvardy P.,Lys E.,udvardy-panna,lys-eva,1221,Kalshi,2.7,1.56,2.44,1.59
+2026-08-03,2026-08-03T06:02:27Z,KAwtgdrT,1785790800,"WTA - SINGLES: Toronto (Canada), hard",hard,Udvardy P.,Lys E.,udvardy-panna,lys-eva,1267,Polymarket.usa,100.0,1.01,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,nHRj0Dkd,1785790800,"WTA - SINGLES: Toronto (Canada), hard",hard,Valentova T.,Townsend T.,valentova-tereza,townsend-taylor,1267,Polymarket.usa,1.67,1.56,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,nHRj0Dkd,1785790800,"WTA - SINGLES: Toronto (Canada), hard",hard,Valentova T.,Townsend T.,valentova-tereza,townsend-taylor,1221,Kalshi,1.52,2.78,1.52,2.63
+2026-08-03,2026-08-03T06:02:27Z,C4tYa4eD,1785790800,"WTA - SINGLES: Toronto (Canada), hard",hard,Zarazua R.,Korpatsch T.,zarazua-renata,korpatsch-tamara,1267,Polymarket.usa,1.69,1.67,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,C4tYa4eD,1785790800,"WTA - SINGLES: Toronto (Canada), hard",hard,Zarazua R.,Korpatsch T.,zarazua-renata,korpatsch-tamara,1221,Kalshi,1.69,2.38,1.89,2.22
+2026-08-03,2026-08-03T06:02:27Z,nqpnZpNa,1785796200,"WTA - SINGLES: Toronto (Canada), hard",hard,Sierra S.,Stephens S.,sierra-solana,stephens-sloane,1267,Polymarket.usa,2.13,1.89,100.0,1.01
+2026-08-03,2026-08-03T06:02:27Z,nqpnZpNa,1785796200,"WTA - SINGLES: Toronto (Canada), hard",hard,Sierra S.,Stephens S.,sierra-solana,stephens-sloane,1221,Kalshi,2.08,1.89,2.0,1.85
