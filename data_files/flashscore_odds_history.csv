@@ -3001,3 +3001,38 @@ date_fetched,fetched_at,event_id,ts_start,tourney,surface,p1,p2,wu,wv,bookmaker_
 2026-09-01,2026-09-01T05:02:58Z,Yw5HaGak,1788289200,"WTA - SINGLES: US Open (USA), hard",hard,Bartunkova N.,Sherif M.,bartunkova-nikola,sherif-mayar,1221,Kalshi,1.23,4.55,1.22,4.55
 2026-09-01,2026-09-01T05:02:58Z,pKeiuGGr,1788292800,"WTA - SINGLES: US Open (USA), hard",hard,Linette M.,Jones F.,linette-magda,jones-francesca,1221,Kalshi,1.92,2.04,1.72,2.17
 2026-09-01,2026-09-01T05:02:58Z,QkZNiM24,1788294600,"WTA - SINGLES: US Open (USA), hard",hard,Oliynykova O.,Brantmeier R.,oliynykova-oleksandra,brantmeier-reese,1221,Kalshi,1.92,2.0,1.96,1.89
+2026-09-02,2026-09-02T05:02:34Z,pM2oFtsn,1788311100,"ATP - SINGLES: US Open (USA), hard",hard,Zverev A.,Sonego L.,zverev-alexander,sonego-lorenzo,1221,Kalshi,1.06,14.29,1.1,5.0
+2026-09-02,2026-09-02T05:02:34Z,juHjCd3C,1788361200,"ATP - SINGLES: US Open (USA), hard",hard,Medvedev D.,Gorzny S.,medvedev-daniil,gorzny-sebastian,1221,Kalshi,1.06,16.67,1.06,16.67
+2026-09-02,2026-09-02T05:02:34Z,jNZVsfh4,1788361200,"ATP - SINGLES: US Open (USA), hard",hard,Merida Aguilar D.,Rublev A.,daniel-merida-aguilar,rublev-andrey,1221,Kalshi,2.44,1.69,2.27,1.59
+2026-09-02,2026-09-02T05:02:34Z,GW3OmwAd,1788361200,"ATP - SINGLES: US Open (USA), hard",hard,Munar J.,Rinderknech A.,munar-jaume,rinderknech-arthur,1221,Kalshi,2.5,1.64,2.38,1.67
+2026-09-02,2026-09-02T05:02:34Z,YeErdEme,1788361200,"ATP - SINGLES: US Open (USA), hard",hard,Nakashima B.,Michelsen A.,nakashima-brandon,michelsen-alex,1221,Kalshi,1.59,2.63,1.64,2.27
+2026-09-02,2026-09-02T05:02:34Z,vNjKGgIj,1788366600,"ATP - SINGLES: US Open (USA), hard",hard,Choinski J.,Van De Zandschulp B.,choinski-jan,van-de-zandschulp-botic,1221,Kalshi,4.17,1.3,1.89,1.3
+2026-09-02,2026-09-02T05:02:34Z,l6aGFapo,1788366600,"ATP - SINGLES: US Open (USA), hard",hard,Etcheverry T. M.,Fearnley J.,etcheverry-tomas-martin,fearnley-jacob,1221,Kalshi,2.33,1.72,2.33,1.72
+2026-09-02,2026-09-02T05:02:34Z,6gEXsWGk,1788366600,"ATP - SINGLES: US Open (USA), hard",hard,Giron M.,Buse I.,giron-marcos,buse-ignacio,1221,Kalshi,2.38,1.69,1.92,1.96
+2026-09-02,2026-09-02T05:02:34Z,rwjkMFfT,1788366600,"ATP - SINGLES: US Open (USA), hard",hard,Svajda Z.,Altmaier D.,svajda-zachary,altmaier-daniel,1221,Kalshi,1.72,2.33,1.72,2.13
+2026-09-02,2026-09-02T05:02:34Z,h6KmoTQr,1788368400,"ATP - SINGLES: US Open (USA), hard",hard,Guerrieri A.,De Minaur A.,guerrieri-andrea,de-minaur-alex,1221,Kalshi,16.67,1.05,12.5,1.06
+2026-09-02,2026-09-02T05:02:34Z,Sr9LZI45,1788368400,"ATP - SINGLES: US Open (USA), hard",hard,Jodar R.,Bu Y.,jodar-rafael,yunchaokete-bu,1221,Kalshi,1.11,9.09,1.14,7.69
+2026-09-02,2026-09-02T05:02:34Z,hn6gDKBb,1788368400,"ATP - SINGLES: US Open (USA), hard",hard,Marozsan F.,Zheng M.,marozsan-fabian,zheng-michael,1221,Kalshi,2.38,1.69,2.13,1.72
+2026-09-02,2026-09-02T05:02:34Z,pbbSIaWs,1788368400,"ATP - SINGLES: US Open (USA), hard",hard,Shelton B.,Hurkacz H.,shelton-ben,hurkacz-hubert,1221,Kalshi,1.45,3.03,1.59,2.63
+2026-09-02,2026-09-02T05:02:34Z,dYBc5IQ8,1788373800,"ATP - SINGLES: US Open (USA), hard",hard,Duckworth J.,Wu Y.,duckworth-james,wu-yibing,1221,Kalshi,2.33,1.72,2.0,1.92
+2026-09-02,2026-09-02T05:02:34Z,MTjABt23,1788373800,"ATP - SINGLES: US Open (USA), hard",hard,Shapovalov D.,van Assche L.,shapovalov-denis,van-assche-luca,1221,Kalshi,1.75,2.27,1.67,2.38
+2026-09-02,2026-09-02T05:02:34Z,OCV4wdjK,1788374700,"ATP - SINGLES: US Open (USA), hard",hard,Lehecka J.,Samuel T.,lehecka-jiri,samuel-toby,1221,Kalshi,1.37,3.57,1.37,3.57
+2026-09-02,2026-09-02T05:02:34Z,6BZxsXJN,1788376500,"ATP - SINGLES: US Open (USA), hard",hard,Berrettini M.,Navone M.,berrettini-matteo,navone-mariano,1221,Kalshi,1.52,2.78,1.52,2.78
+2026-09-02,2026-09-02T05:02:34Z,0rtv3FE7,1788377400,"ATP - SINGLES: US Open (USA), hard",hard,Prizmic D.,Paul T.,prizmic-dino,paul-tommy,1221,Kalshi,5.26,1.23,4.17,1.33
+2026-09-02,2026-09-02T05:02:34Z,t61Cu0HD,1788379200,"ATP - SINGLES: US Open (USA), hard",hard,Bublik A.,Mannarino A.,bublik-alexander,mannarino-adrian,1221,Kalshi,1.32,3.85,1.19,4.17
+2026-09-02,2026-09-02T05:02:34Z,EsONFMjL,1788381000,"ATP - SINGLES: US Open (USA), hard",hard,Harris L.,Tsitsipas S.,harris-lloyd,tsitsipas-stefanos,1221,Kalshi,3.57,1.33,3.45,1.35
+2026-09-02,2026-09-02T05:02:34Z,noNqI5Jk,1788386400,"ATP - SINGLES: US Open (USA), hard",hard,Vacherot V.,Majchrzak K.,vacherot-valentin,majchrzak-kamil,1221,Kalshi,1.85,2.17,1.67,1.89
+2026-09-02,2026-09-02T05:02:34Z,GSy3Jzal,1788361200,"WTA - SINGLES: US Open (USA), hard",hard,Paolini J.,Stefanini L.,paolini-jasmine,stefanini-lucrezia,1221,Kalshi,1.45,3.13,1.45,2.94
+2026-09-02,2026-09-02T05:02:34Z,v7jAJxMa,1788361200,"WTA - SINGLES: US Open (USA), hard",hard,Parry D.,Cirstea S.,parry-diane,cirstea-sorana,1221,Kalshi,3.23,1.41,3.23,1.43
+2026-09-02,2026-09-02T05:02:34Z,dEL3qy4k,1788361200,"WTA - SINGLES: US Open (USA), hard",hard,Pliskova Ka.,Shnaider D.,pliskova-karolina,shnaider-diana,1221,Kalshi,3.45,1.35,2.86,1.45
+2026-09-02,2026-09-02T05:02:34Z,dYZcR9d3,1788361200,"WTA - SINGLES: US Open (USA), hard",hard,Sawangkaew M.,Fernandez L.,sawangkaew-mananchaya,fernandez-leylah-annie,1221,Kalshi,4.17,1.33,4.55,1.25
+2026-09-02,2026-09-02T05:02:34Z,8IlMFjR1,1788361200,"WTA - SINGLES: US Open (USA), hard",hard,Townsend T.,Preston T.,townsend-taylor,preston-taylah,1221,Kalshi,1.33,3.57,1.33,3.57
+2026-09-02,2026-09-02T05:02:34Z,WhwsvraL,1788363000,"WTA - SINGLES: US Open (USA), hard",hard,Pegula J.,Kenin S.,pegula-jessica,kenin-sofia,1221,Kalshi,1.05,16.67,1.08,11.11
+2026-09-02,2026-09-02T05:02:34Z,hlTMpFKb,1788368400,"WTA - SINGLES: US Open (USA), hard",hard,Kostyuk M.,Stephens S.,kostyuk-marta,stephens-sloane,1221,Kalshi,1.12,7.69,1.15,4.35
+2026-09-02,2026-09-02T05:02:34Z,63ybnbLM,1788368400,"WTA - SINGLES: US Open (USA), hard",hard,Navarro E.,McNally C.,navarro-emma,mcnally-caty,1221,Kalshi,1.79,2.22,1.75,2.22
+2026-09-02,2026-09-02T05:02:34Z,xvYwtYMG,1788373800,"WTA - SINGLES: US Open (USA), hard",hard,Wang Xin.,Kalinskaya A.,wang-xinyu-2001,kalinskaya-anna,1221,Kalshi,2.94,1.47,3.03,1.39
+2026-09-02,2026-09-02T05:02:34Z,2cypNIlI,1788375600,"WTA - SINGLES: US Open (USA), hard",hard,Boulter K.,Muchova K.,boulter-katie,muchova-karolina,1221,Kalshi,5.26,1.19,5.26,1.19
+2026-09-02,2026-09-02T05:02:34Z,ABpEZGsf,1788375600,"WTA - SINGLES: US Open (USA), hard",hard,Selekhmeteva O.,Rakhimova K.,selekhmeteva-oksana,rakhimova-kamilla,1221,Kalshi,2.56,1.64,1.35,1.32
+2026-09-02,2026-09-02T05:02:34Z,IylMXfC6,1788378300,"WTA - SINGLES: US Open (USA), hard",hard,Birrell K.,Alexandrova E.,birrell-kimberly,alexandrova-ekaterina,1221,Kalshi,3.57,1.32,1.79,1.27
+2026-09-02,2026-09-02T05:02:34Z,2sL8yBso,1788381000,"WTA - SINGLES: US Open (USA), hard",hard,Li A.,Vekic D.,li-ann,vekic-donna,1221,Kalshi,1.64,2.5,1.75,2.22
+2026-09-02,2026-09-02T05:02:34Z,AREAeWYG,1788384600,"WTA - SINGLES: US Open (USA), hard",hard,Svitolina E.,Joint M.,monfils-elina,joint-maya,1221,Kalshi,1.2,6.25,1.18,6.25
