@@ -1,18 +1,5 @@
 {
-  "date_fetched": "2026-09-13",
-  "fetched_at": "2026-09-13T05:02:58Z",
-  "matches": [
-    {
-      "player1": "Alexander Zverev",
-      "player2": "Ben Shelton",
-      "player1_odds": 1.72,
-      "player2_odds": 2.36,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.5784,
-      "p2_prob": 0.4216,
-      "overround": 1.0051,
-      "commence_time": "2026-09-13T18:00:00Z",
-      "sport_key": "tennis_atp_us_open"
-    }
-  ]
+  "date_fetched": "2026-09-14",
+  "fetched_at": "2026-09-14T05:03:02Z",
+  "matches": []
 }
