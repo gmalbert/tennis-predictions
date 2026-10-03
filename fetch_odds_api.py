@@ -8,6 +8,9 @@ single bookmaker with the tightest overround (closest to fair).  The file is
 stamped with today's UTC date so the app can detect stale data and skip API
 calls when already populated.
 
+A failed request or invalid response aborts the snapshot, preserving the previous
+cache so the next invocation can retry. Successful empty responses are cached.
+
 Usage:
     python fetch_odds_api.py              # fetch and write
     python fetch_odds_api.py --dry-run    # print, do not write
@@ -85,6 +88,15 @@ def _devig(o1: float, o2: float) -> tuple[float, float]:
     return r1 / total, r2 / total
 
 
+def _response_items(resp: requests.Response) -> list[dict]:
+    """Reject failed or malformed responses before treating them as empty data."""
+    resp.raise_for_status()
+    items = resp.json()
+    if not isinstance(items, list) or not all(isinstance(item, dict) for item in items):
+        raise ValueError("Expected a list of objects from The Odds API")
+    return items
+
+
 def fetch_active_tennis_odds(api_key: str, verbose: bool = False) -> list[dict]:
     """
     Fetch h2h odds for all active tennis events from The Odds API.
@@ -95,24 +107,19 @@ def fetch_active_tennis_odds(api_key: str, verbose: bool = False) -> list[dict]:
 
     Returns one record per match, keeping the bookmaker with the tightest
     overround (lowest vig) so we get best-quality implied probabilities.
+    Request and response errors propagate instead of returning a partial snapshot.
     """
     # Discover active sport keys — avoids wasting quota on inactive tournaments
-    active_keys: set[str] = set()
-    remaining: str | None = None
-    try:
-        resp = requests.get(
-            f"{BASE_URL}/sports",
-            params={"apiKey": api_key, "all": "false"},
-            timeout=15,
-        )
-        resp.raise_for_status()
-        remaining = resp.headers.get("x-requests-remaining")
-        active_keys = {s["key"] for s in resp.json() if s.get("group") == "Tennis"}
-        if verbose:
-            print(f"  Active tennis sport keys: {sorted(active_keys)}")
-    except Exception as e:
-        print(f"[warn] Could not list active sports: {e}  (will attempt all known keys)")
-        active_keys = set(TENNIS_SPORTS)
+    resp = requests.get(
+        f"{BASE_URL}/sports",
+        params={"apiKey": api_key, "all": "false"},
+        timeout=15,
+    )
+    sports = _response_items(resp)
+    remaining = resp.headers.get("x-requests-remaining")
+    active_keys = {s["key"] for s in sports if s.get("group") == "Tennis"}
+    if verbose:
+        print(f"  Active tennis sport keys: {sorted(active_keys)}")
 
     all_matches: dict[tuple, dict] = {}  # (p1_lower, p2_lower) → best row
 
@@ -122,26 +129,22 @@ def fetch_active_tennis_odds(api_key: str, verbose: bool = False) -> list[dict]:
                 print(f"  skip (inactive): {sport_key}")
             continue
 
-        try:
-            resp = requests.get(
-                f"{BASE_URL}/sports/{sport_key}/odds",
-                params={
-                    "apiKey":     api_key,
-                    "regions":    "us,uk,eu",
-                    "markets":    "h2h",
-                    "oddsFormat": "decimal",
-                },
-                timeout=15,
-            )
-            remaining = resp.headers.get("x-requests-remaining")
-            if resp.status_code == 404:
-                continue
-            resp.raise_for_status()
-        except Exception as e:
-            print(f"[warn] {sport_key}: {e}")
-            continue
+        # Even a failure after earlier successes must leave the previous cache
+        # intact; otherwise today's stamp suppresses retries for the missing tour.
+        resp = requests.get(
+            f"{BASE_URL}/sports/{sport_key}/odds",
+            params={
+                "apiKey":     api_key,
+                "regions":    "us,uk,eu",
+                "markets":    "h2h",
+                "oddsFormat": "decimal",
+            },
+            timeout=15,
+        )
+        events = _response_items(resp)
+        remaining = resp.headers.get("x-requests-remaining")
 
-        for event in resp.json():
+        for event in events:
             p1 = event.get("home_team", "")
             p2 = event.get("away_team", "")
             ct = event.get("commence_time", "")
@@ -245,4 +248,11 @@ if __name__ == "__main__":
     parser.add_argument("--dry-run",  action="store_true", help="Print only, do not write")
     parser.add_argument("--verbose",  action="store_true", help="Show per-match detail")
     args = parser.parse_args()
-    main(dry_run=args.dry_run, verbose=args.verbose)
+    try:
+        main(dry_run=args.dry_run, verbose=args.verbose)
+    except (requests.RequestException, ValueError) as exc:
+        # Request exception messages can contain the API key in the URL.
+        detail = type(exc).__name__
+        if isinstance(exc, requests.HTTPError) and exc.response is not None:
+            detail += f" {exc.response.status_code}"
+        parser.exit(1, f"[error] Odds API snapshot not updated ({detail}); existing cache kept.\n")
