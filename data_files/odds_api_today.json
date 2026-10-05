@@ -1,29 +1,17 @@
 {
-  "date_fetched": "2026-10-04",
-  "fetched_at": "2026-10-04T10:48:34Z",
+  "date_fetched": "2026-10-05",
+  "fetched_at": "2026-10-05T11:55:03Z",
   "matches": [
     {
-      "player1": "Alexander Zverev",
-      "player2": "Novak Djokovic",
-      "player1_odds": 1.38,
-      "player2_odds": 3.6,
-      "bookmaker": "Matchbook",
-      "p1_prob": 0.7229,
-      "p2_prob": 0.2771,
-      "overround": 1.0024,
-      "commence_time": "2026-10-04T11:00:00Z",
-      "sport_key": "tennis_atp_china_open"
-    },
-    {
-      "player1": "Alex de Minaur",
-      "player2": "Hubert Hurkacz",
-      "player1_odds": 1.6,
-      "player2_odds": 2.43,
-      "bookmaker": "1xBet",
-      "p1_prob": 0.603,
-      "p2_prob": 0.397,
-      "overround": 1.0365,
-      "commence_time": "2026-10-05T07:00:00Z",
+      "player1": "Novak Djokovic",
+      "player2": "Daniil Medvedev",
+      "player1_odds": 2.52,
+      "player2_odds": 1.64,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.3942,
+      "p2_prob": 0.6058,
+      "overround": 1.0066,
+      "commence_time": "2026-10-05T11:19:00Z",
       "sport_key": "tennis_atp_china_open"
     }
   ]
