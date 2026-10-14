@@ -1,55 +1,7 @@
 {
-  "date_fetched": "2026-10-13",
-  "fetched_at": "2026-10-13T12:16:40Z",
+  "date_fetched": "2026-10-14",
+  "fetched_at": "2026-10-14T09:49:43Z",
   "matches": [
-    {
-      "player1": "Alexander Zverev",
-      "player2": "Alexander Bublik",
-      "player1_odds": 2.38,
-      "player2_odds": 1.71,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.4181,
-      "p2_prob": 0.5819,
-      "overround": 1.005,
-      "commence_time": "2026-10-13T10:09:09Z",
-      "sport_key": "tennis_atp_shanghai_masters"
-    },
-    {
-      "player1": "Hubert Hurkacz",
-      "player2": "Alejandro Davidovich Fokina",
-      "player1_odds": 1.94,
-      "player2_odds": 2.04,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.5126,
-      "p2_prob": 0.4874,
-      "overround": 1.0057,
-      "commence_time": "2026-10-13T12:30:00Z",
-      "sport_key": "tennis_atp_shanghai_masters"
-    },
-    {
-      "player1": "Botic van de Zandschulp",
-      "player2": "Rafael Jodar",
-      "player1_odds": 2.74,
-      "player2_odds": 1.56,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.3628,
-      "p2_prob": 0.6372,
-      "overround": 1.006,
-      "commence_time": "2026-10-14T04:00:00Z",
-      "sport_key": "tennis_atp_shanghai_masters"
-    },
-    {
-      "player1": "Casper Ruud",
-      "player2": "Felix Auger-Aliassime",
-      "player1_odds": 2.38,
-      "player2_odds": 1.71,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.4181,
-      "p2_prob": 0.5819,
-      "overround": 1.005,
-      "commence_time": "2026-10-14T05:10:00Z",
-      "sport_key": "tennis_atp_shanghai_masters"
-    },
     {
       "player1": "Daniil Medvedev",
       "player2": "Stefanos Tsitsipas",
@@ -65,13 +17,49 @@
     {
       "player1": "Tommy Paul",
       "player2": "Zizou Bergs",
-      "player1_odds": 1.52,
-      "player2_odds": 2.88,
+      "player1_odds": 1.51,
+      "player2_odds": 2.92,
       "bookmaker": "Betfair",
-      "p1_prob": 0.6545,
-      "p2_prob": 0.3455,
-      "overround": 1.0051,
+      "p1_prob": 0.6591,
+      "p2_prob": 0.3409,
+      "overround": 1.0047,
       "commence_time": "2026-10-14T11:10:00Z",
+      "sport_key": "tennis_atp_shanghai_masters"
+    },
+    {
+      "player1": "Arthur Gea",
+      "player2": "Alejandro Davidovich Fokina",
+      "player1_odds": 2.1,
+      "player2_odds": 1.88,
+      "bookmaker": "Betfair",
+      "p1_prob": 0.4724,
+      "p2_prob": 0.5276,
+      "overround": 1.0081,
+      "commence_time": "2026-10-15T06:30:00Z",
+      "sport_key": "tennis_atp_shanghai_masters"
+    },
+    {
+      "player1": "Alexander Zverev",
+      "player2": "Alex de Minaur",
+      "player1_odds": 1.52,
+      "player2_odds": 2.8,
+      "bookmaker": "Matchbook",
+      "p1_prob": 0.6481,
+      "p2_prob": 0.3519,
+      "overround": 1.015,
+      "commence_time": "2026-10-15T10:00:00Z",
+      "sport_key": "tennis_atp_shanghai_masters"
+    },
+    {
+      "player1": "Rafael Jodar",
+      "player2": "Casper Ruud",
+      "player1_odds": 1.69,
+      "player2_odds": 2.22,
+      "bookmaker": "1xBet",
+      "p1_prob": 0.5678,
+      "p2_prob": 0.4322,
+      "overround": 1.0422,
+      "commence_time": "2026-10-16T04:00:00Z",
       "sport_key": "tennis_atp_shanghai_masters"
     }
   ]
