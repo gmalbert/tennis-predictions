@@ -1,18 +1,5 @@
 {
-  "date_fetched": "2026-10-18",
-  "fetched_at": "2026-10-18T09:12:33Z",
-  "matches": [
-    {
-      "player1": "Alejandro Davidovich Fokina",
-      "player2": "Rafael Jodar",
-      "player1_odds": 4.6,
-      "player2_odds": 1.27,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.2164,
-      "p2_prob": 0.7836,
-      "overround": 1.0048,
-      "commence_time": "2026-10-18T08:37:25Z",
-      "sport_key": "tennis_atp_shanghai_masters"
-    }
-  ]
+  "date_fetched": "2026-10-19",
+  "fetched_at": "2026-10-19T10:22:49Z",
+  "matches": []
 }
