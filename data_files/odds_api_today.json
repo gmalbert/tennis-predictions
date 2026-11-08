@@ -1,29 +1,17 @@
 {
-  "date_fetched": "2026-11-07",
-  "fetched_at": "2026-11-07T11:23:50Z",
+  "date_fetched": "2026-11-08",
+  "fetched_at": "2026-11-08T11:35:53Z",
   "matches": [
     {
-      "player1": "Luca Van Assche",
-      "player2": "Ben Shelton",
-      "player1_odds": 4.1,
-      "player2_odds": 1.31,
-      "bookmaker": "Betfair",
-      "p1_prob": 0.2421,
-      "p2_prob": 0.7579,
-      "overround": 1.0073,
-      "commence_time": "2026-11-07T13:30:00Z",
-      "sport_key": "tennis_atp_paris_masters"
-    },
-    {
-      "player1": "Casper Ruud",
+      "player1": "Ben Shelton",
       "player2": "Carlos Alcaraz",
-      "player1_odds": 5.3,
-      "player2_odds": 1.22,
+      "player1_odds": 4.2,
+      "player2_odds": 1.3,
       "bookmaker": "Betfair",
-      "p1_prob": 0.1871,
-      "p2_prob": 0.8129,
-      "overround": 1.0084,
-      "commence_time": "2026-11-07T16:00:00Z",
+      "p1_prob": 0.2364,
+      "p2_prob": 0.7636,
+      "overround": 1.0073,
+      "commence_time": "2026-11-08T14:00:00Z",
       "sport_key": "tennis_atp_paris_masters"
     }
   ]
